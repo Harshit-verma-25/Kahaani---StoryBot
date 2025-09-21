@@ -11,7 +11,7 @@ const StoriesGridSection = () => {
   ];
 
   return (
-    <section className="bg-background lg:px-16 sm:px-10 px-4">
+    <section id="storiesGrid" className="bg-background lg:px-16 sm:px-10 px-4 scroll-mt-10 md:scroll-mt-24">
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-10 items-start">
         {stories.map((story, index) => (
           <div

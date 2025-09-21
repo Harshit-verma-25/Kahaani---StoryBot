@@ -9,8 +9,8 @@ import { IoMdMenu } from "react-icons/io";
 const Navbar = () => {
   const navItems = [
     { name: "Home", link: "/" },
-    { name: "Generate Story", link: "#generate-story" },
-    { name: "About Us", link: "#about-us" },
+    { name: "Generate Story", link: "/generate-story" },
+    { name: "About Us", link: "/about-us" },
   ];
 
   const [menuOpen, setMenuOpen] = useState(false);

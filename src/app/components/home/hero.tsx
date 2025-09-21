@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { FaMagic } from "react-icons/fa";
 
 const HeroSection = () => {
@@ -69,15 +70,19 @@ const HeroSection = () => {
         </p>
 
         <div className="flex flex-col md:flex-row gap-4">
-          <button className="px-6 py-3 font-medium bg-primary text-white rounded-full cursor-pointer hover:scale-105 transition-all">
-            Generate Custom Story
-            <FaMagic className="inline-block ml-2 mb-1" size={18} />
-          </button>
+          <Link href="/generate-story">
+            <button className="px-6 py-3 font-medium bg-primary text-white rounded-full cursor-pointer hover:scale-105 transition-all">
+              Generate Custom Story
+              <FaMagic className="inline-block ml-2 mb-1" size={18} />
+            </button>
+          </Link>
 
           <div className="relative">
-            <button className="w-full px-6 py-3 border-2 font-medium border-primary text-primary rounded-full transition cursor-pointer hover:scale-105">
-              KahaaniBot Tales
-            </button>
+            <Link href="#storiesGrid">
+              <button className="w-full px-6 py-3 border-2 font-medium border-primary text-primary rounded-full transition cursor-pointer hover:scale-105">
+                KahaaniBot Tales
+              </button>
+            </Link>
 
             <Image
               src="/home/home-4.png"

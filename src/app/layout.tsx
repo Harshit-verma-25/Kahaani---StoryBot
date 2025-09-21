@@ -8,11 +8,8 @@ export const metadata: Metadata = {
   description: "Experience the magic of storytelling with KahaaniBot.",
   icons: {
     icon: "/Logo.ico",
-  },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
+    shortcut: "/Logo.ico",
+    apple: "/Logo.ico",
   },
 };
 

@@ -94,11 +94,11 @@ const AboutUsPage = () => {
         </div>
       </div>
 
-      <div className="w-full max-w-7xl flex items-center justify-evenly">
+      <div className="w-full max-w-7xl flex items-center flex-col lg:flex-row gap-8 justify-evenly">
         {teamDetails.map((teamDetail, index) => (
-          <div className="flex items-end" key={index}>
+          <div className="flex flex-col md:flex-row items-center md:items-end" key={index}>
             {/* Profile */}
-            <div className="max-w-44 h-44 flex bg-[#FEECFF] pt-1 overflow-hidden relative cursor-pointer hover:shadow-lg transition hover:scale-[1.02]">
+            <div className="max-w-48 h-48 flex bg-[#FEECFF] pt-1 overflow-hidden relative cursor-pointer hover:shadow-lg transition hover:scale-[1.02]">
               <Image
                 src={teamDetail.profile}
                 alt={teamDetail.name}
@@ -109,8 +109,8 @@ const AboutUsPage = () => {
             </div>
 
             {/* Description */}
-            <div className="flex flex-col">
-              <div className="h-16 w-[6rem]">
+            <div className="flex flex-col text-center md:text-left items-center md:items-start mt-4 md:mt-0 gap-4">
+              <div className="hidden md:block h-16 w-[6rem]">
                 <Image
                   width={100}
                   height={100}
@@ -119,7 +119,7 @@ const AboutUsPage = () => {
                   alt=""
                 />
               </div>
-              <div className="flex flex-col pl-8 text-2xl">
+              <div className="flex flex-col md:pl-8 text-lg md:text-2xl">
                 <p className="text-primary font-semibold">
                   {teamDetail.name} • {teamDetail.role}
                 </p>

@@ -94,7 +94,7 @@ const GenerateStoryPage = () => {
       }
     } catch (error) {
       console.error("Error generating story:", error);
-      toast.error("An error occurred while generating the story.");
+      toast.error("Oops! The storyteller got a little lost. Please try asking again!");
     } finally {
       setLoading(false);
     }

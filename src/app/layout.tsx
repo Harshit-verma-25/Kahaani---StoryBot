@@ -13,6 +13,22 @@ export const metadata: Metadata = {
     shortcut: "/Logo.ico",
     apple: "/Logo.ico",
   },
+  openGraph: {
+    title: "KahaaniBot - AI-Powered Storytelling for Kids",
+    description: "Experience the magic of storytelling with KahaaniBot.",
+    url: "https://kahaani-story-bot.vercel.app/",
+    siteName: "KahaaniBot",
+    images: [
+      {
+        url: "https://kahaani-story-bot.vercel.app/Logo.png",
+        width: 1200,
+        height: 630,
+        alt: "KahaaniBot Open Graph Image",
+      },
+    ],
+    locale: "en-US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

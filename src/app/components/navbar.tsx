@@ -5,8 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { IoClose } from "react-icons/io5";
 import { IoMdMenu } from "react-icons/io";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
+  const router = useRouter();
   const navItems = [
     { name: "Home", link: "/" },
     { name: "Generate Story", link: "/generate-story" },
@@ -25,7 +27,7 @@ const Navbar = () => {
 
   return (
     <nav className="relative w-full h-18 shadow-lg flex items-center bg-background lg:px-12 px-4">
-      <div className="flex items-center mr-auto">
+      <div className="flex items-center mr-auto cursor-pointer" onClick={() => router.push("/")}>
         <Image src="/Logo.png" alt="Logo" width={50} height={50} priority />
         <span className="max-sm:hidden font-medium text-3xl bg-clip-text text-transparent bg-[linear-gradient(90deg,#6122C0_0%,#7846C2_12.98%,#7B49C6_25.48%,#8D77D7_49.52%,#7B49C6_77.4%,#7846C2_89.9%,#6122C0_100%)]">
           KahaaniBot

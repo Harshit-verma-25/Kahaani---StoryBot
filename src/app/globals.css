@@ -8,3 +8,19 @@
   --color-secondary: #000000;
   --font-fredoka: "Fredoka", sans-serif;
 }
+
+@layer utilities {
+  .scrollbar-none {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+    width: 0;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}

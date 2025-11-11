@@ -31,7 +31,7 @@ const WhyStoryTellingSection = () => {
           {content.map((item, index) => (
             <div
               key={index}
-              className="bg-[#FEECFF] rounded-xl flex flex-col gap-3 md:gap-6 md:p-10 p-6"
+              className="bg-[#FEECFF] rounded-xl flex flex-col gap-3 md:gap-6 md:p-10 p-6 cursor-pointer hover:shadow-lg transition hover:scale-[1.02]"
             >
               <span className="text-6xl text-primary">0{index + 1}</span>
               <h2 className="text-secondary text-2xl font-medium">

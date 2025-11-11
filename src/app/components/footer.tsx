@@ -3,7 +3,7 @@ import { FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 const Footer = () => {
   return (
     <footer className="w-full bg-primary text-white lg:p-16 sm:p-10 p-4 bg-[url('/footer-pattern.png')] bg-cover bg-center">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
         {/* Left Section */}
         <div className="flex flex-col items-center md:items-start gap-6 text-center md:text-left">
           <h2 className="font-medium text-3xl">KahaaniBot</h2>
@@ -27,7 +27,7 @@ const Footer = () => {
 
           <div className="flex items-center gap-4 md:gap-3 justify-center md:justify-start">
             {["FaInstagram", "FaLinkedin", "FaYoutube"].map((item) => (
-              <div key={item} className="hover:text-secondary">
+              <div key={item} className="hover:text-secondary cursor-pointer">
                 {item === "FaInstagram" && <FaInstagram size={24} />}
                 {item === "FaLinkedin" && <FaLinkedin size={24} />}
                 {item === "FaYoutube" && <FaYoutube size={24} />}
@@ -48,12 +48,12 @@ const Footer = () => {
               placeholder="Enter your email"
               className="flex-1 px-4 py-2 rounded-full outline-none border border-white text-white placeholder:text-white"
             />
-            <button className="px-6 py-2 bg-secondary text-white rounded-full hover:bg-secondary/80 transition">
+            <button className="px-6 cursor-pointer py-2 bg-white text-primary rounded-full hover:bg-white/80 transition">
               Subscribe
             </button>
           </div>
 
-          <span className="text-secondary/70 text-sm max-w-xl">
+          <span className="text-white/60 text-sm max-w-xl">
             By subscribing you agree with our Privacy Policy and provide consent
             to receive updates from our company.
           </span>

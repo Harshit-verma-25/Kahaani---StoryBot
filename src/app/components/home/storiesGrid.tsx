@@ -16,7 +16,7 @@ const StoriesGridSection = () => {
         {stories.map((story, index) => (
           <div
             key={index}
-            className="relative rounded-xl overflow-hidden cursor-pointer hover:scale-105 transition-transform"
+            className="relative rounded-xl overflow-hidden cursor-pointer hover:shadow-lg transition hover:scale-[1.02]"
           >
             <Image
               src={story.thumbnail}

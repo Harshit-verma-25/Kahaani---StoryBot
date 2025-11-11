@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     siteName: "KahaaniBot",
     images: [
       {
-        url: "https://kahaani-story-bot.vercel.app/Logo.png",
+        url: "https://kahaani-story-bot.vercel.app/og-image.png",
         width: 1200,
         height: 630,
         alt: "KahaaniBot Open Graph Image",

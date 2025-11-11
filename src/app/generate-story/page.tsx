@@ -198,7 +198,7 @@ const GenerateStoryPage = () => {
           <>
             <div className="text-center max-w-3xl">
               <h1 className="text-xl sm:text-2xl lg:text-4xl text-primary font-medium">
-                "{output.title}"
+                &quot;{output.title}&quot;
               </h1>
             </div>
 

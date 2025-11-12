@@ -41,8 +41,8 @@ export async function generateStory({ prompt, moral, language }: StoryData) {
     contents: prompt,
     config: {
       systemInstruction: SYSTEM_INSTRUCTIONS,
-      temperature: 0.7,
-      responseJsonSchema: {
+      responseMimeType: "application/json",
+      responseSchema: {
         type: "object",
         properties: {
           title: { type: "string" },

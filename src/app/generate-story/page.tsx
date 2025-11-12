@@ -45,7 +45,7 @@ const GenerateStoryPage = () => {
           const nextIndex = (currentIndex + 1) % loadingMessages.length;
           return loadingMessages[nextIndex];
         });
-      }, 1000);
+      }, 1500);
     } else {
       setCurrentMessage(loadingMessages[0]);
     }

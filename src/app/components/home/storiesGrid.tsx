@@ -27,13 +27,13 @@ const StoriesGridSection = () => {
               priority={index < 3}
             />
 
-            {index >= stories.length - 3 && (
+            {/* {index >= stories.length - 3 && ( */}
               <div className="absolute inset-0 opacity-90 bg-[#545454E0] flex items-center justify-center">
-                <span className="text-white text-lg font-semibold">
+                <span className="text-white text-2xl md:text-4xl font-semibold">
                   Coming Soon
                 </span>
               </div>
-            )}
+            {/* )} */}
           </div>
         ))}
       </div>

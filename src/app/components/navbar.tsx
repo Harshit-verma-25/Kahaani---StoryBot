@@ -11,7 +11,7 @@ const Navbar = () => {
   const router = useRouter();
   const navItems = [
     { name: "Home", link: "/" },
-    { name: "Generate Story", link: "/generate-story" },
+    { name: "Custom Story", link: "/custom-story" },
     { name: "About Us", link: "/about-us" },
   ];
 
@@ -50,12 +50,12 @@ const Navbar = () => {
       <div className="hidden lg:block">
         <div className="flex font-medium items-center gap-8 text-secondary">
           {navItems.map((item) => (
-            <Link key={item.name} href={item.link} className="text-lg">
+            <Link key={item.name} href={item.link} className="text-lg hover:scale-105 transition">
               {item.name}
             </Link>
           ))}
 
-          <button className="px-3 font-medium py-1 border border-secondary hover:bg-secondary hover:text-white rounded-full transition cursor-pointer">
+          <button className="px-3 font-medium py-1 border border-secondary hover:bg-secondary hover:scale-105 hover:text-white rounded-full transition cursor-pointer">
             Get Started
           </button>
         </div>

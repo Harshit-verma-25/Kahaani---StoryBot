@@ -29,10 +29,23 @@ export default function StoryReader({
   pitch = 1,
 }: Props) {
   const sentences = useMemo(() => splitIntoSentences(story), [story]);
+  
   const [current, setCurrent] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const isPlayingRef = useRef(false); // synchronous mirror of isPlaying
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
+
+  // Stop and reset player whenever language changes
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.speechSynthesis.cancel();
+    }
+    // keep ref + state in sync so playback won't resume unexpectedly
+    isPlayingRef.current = false;
+    setIsPlaying(false);
+    setCurrent(0);
+  }, [language]);
+
   const activeRef = useRef<HTMLDivElement | null>(null);
   const utterRef = useRef<SpeechSynthesisUtterance | null>(null);
   const speakingRef = useRef(false); // prevents overlapping speaks
@@ -288,7 +301,7 @@ export default function StoryReader({
 
       {!chosenVoice && (
         <p className="mt-4 text-sm text-neutral-500">
-          Tip: your browser’s TTS voice for “{language}” wasn’t found. It will
+          Tip: your browser&apos;s TTS voice for “{language}” wasn&apos;t found. It will
           use the default voice.
         </p>
       )}

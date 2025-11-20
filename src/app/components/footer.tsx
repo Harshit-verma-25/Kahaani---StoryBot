@@ -1,6 +1,42 @@
+"use client";
+
 import { FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
+import { useState } from "react";
+import axios from "axios";
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [isSubscribing, setIsSubscribing] = useState(false);
+
+  const handleSubscribe = async () => {
+    if (!email || isSubscribing) return;
+
+    if (!email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+      setMessage('Please enter a valid email address.');
+      return;
+    }
+
+    setIsSubscribing(true);
+    setMessage('Subscribing...');
+
+    try {
+      const response = await axios.post('/api/subscribe', { email });
+
+      if (response.status === 200) {
+        setMessage('Subscription successful! Check your email for a welcome message.');
+        setEmail('');
+      }
+    } catch (error) {
+      console.error('Subscription error:', error);
+      setMessage('Subscription failed. Please try again later.');
+    } finally {
+      setIsSubscribing(false);
+    }
+  };
+
+
+
   return (
     <footer className="w-full bg-primary text-white lg:p-16 sm:p-10 p-4 bg-[url('/footer-pattern.png')] bg-cover bg-center">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
@@ -11,9 +47,8 @@ const Footer = () => {
           <div className="flex flex-wrap justify-center md:justify-start items-center gap-4 md:gap-6">
             {[
               { name: "Home", href: "/" },
-              { name: "About Us", href: "#" },
+              { name: "About Us", href: "/about-us" },
               { name: "Join Our Team", href: "#" },
-              { name: "Contact Us", href: "#" },
             ].map((item) => (
               <a
                 key={item.name}
@@ -47,11 +82,15 @@ const Footer = () => {
               type="email"
               placeholder="Enter your email"
               className="flex-1 px-4 py-2 rounded-full outline-none border border-white text-white placeholder:text-white"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
-            <button className="px-6 cursor-pointer py-2 bg-white text-primary rounded-full hover:bg-white/80 transition">
-              Subscribe
+            <button className="px-6 cursor-pointer py-2 bg-white text-primary rounded-full hover:bg-white/80 transition" onClick={handleSubscribe} disabled={isSubscribing}>
+              {isSubscribing ? 'Sending...' : 'Subscribe'}
             </button>
           </div>
+
+          {message && (<span className="text-white/80 text-sm max-w-xl">{message}</span>)}
 
           <span className="text-white/60 text-sm max-w-xl">
             By subscribing you agree with our Privacy Policy and provide consent

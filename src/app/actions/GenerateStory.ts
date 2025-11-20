@@ -3,7 +3,7 @@
 import { GoogleGenAI } from "@google/genai";
 import { StoryData } from "@/app/lib/types";
 
-export async function generateStory({ prompt, moral, language }: StoryData) {
+export async function generateStory({ prompt, language }: StoryData) {
   const apiKey = process.env.GEMINI_API_KEY!;
   const genAI = new GoogleGenAI({ apiKey });
 

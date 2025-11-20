@@ -10,3 +10,10 @@ export interface GeneratedStory {
   summary: string;
   moral: string;
 }
+
+export interface inBuiltStory {
+  [key: string]: {
+    english: GeneratedStory;
+    hindi: GeneratedStory;
+  };
+}

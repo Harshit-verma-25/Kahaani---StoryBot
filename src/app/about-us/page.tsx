@@ -87,7 +87,7 @@ const AboutUsPage = () => {
           </h2>
           <p className="text-secondary text-base md:text-lg max-w-2xl">
             Young storytellers and tech enthusiasts creating an interactive
-            mythology platform for kids, blending ancient tales with modern technology. Their passion for stories and innovation drives KahaaniBot's mission to make learning fun and engaging. 
+            mythology platform for kids, blending ancient tales with modern technology. Their passion for stories and innovation drives KahaaniBot&apos;s mission to make learning fun and engaging. 
           </p>
         </div>
       </div>

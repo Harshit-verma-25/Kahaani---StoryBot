@@ -136,7 +136,7 @@ const GenerateStoryPage = () => {
                   cols={50}
                   placeholder="Example: A brave little elephant who overcomes challenges to find his way back home."
                   id="prompt"
-                  className="outline-none p-2 border border-primary rounded-xl w-full"
+                  className="outline-none resize-none p-2 border border-primary rounded-xl w-full"
                   value={storyData.prompt}
                   onChange={handleChange}
                 />

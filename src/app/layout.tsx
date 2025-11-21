@@ -37,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scrollbar-brand">
       <body className={`font-fredoka antialiased`}>
         <ToastContainer />
         <Navbar />

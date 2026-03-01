@@ -4,10 +4,15 @@ import { FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import ContactModal from "./modals/contactModal";
+import JoinOurTeamModal from "./modals/joinOurTeamModal";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
+
   const [isSubscribing, setIsSubscribing] = useState(false);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [isJoinTeamModalOpen, setIsJoinTeamModalOpen] = useState(false);
 
   const handleSubscribe = async () => {
     if (!email) {
@@ -28,7 +33,7 @@ const Footer = () => {
 
       if (response.status === 200) {
         toast.success(
-          "Subscription successful! Check your email for a welcome message."
+          "Subscription successful! Check your email for a welcome message.",
         );
         setEmail("");
       }
@@ -42,8 +47,20 @@ const Footer = () => {
 
   return (
     <footer className="w-full bg-primary text-white lg:p-16 sm:p-10 p-4 bg-[url('/footer-pattern.png')] bg-cover bg-center">
+      {isContactModalOpen && (
+        <ContactModal
+          isOpen={isContactModalOpen}
+          onClose={() => setIsContactModalOpen(false)}
+        />
+      )}
+      {isJoinTeamModalOpen && (
+        <JoinOurTeamModal
+          isOpen={isJoinTeamModalOpen}
+          onClose={() => setIsJoinTeamModalOpen(false)}
+        />
+      )}
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
-        {/* Left Section */}
         <div className="flex flex-col items-center md:items-start gap-6 text-center md:text-left">
           <h2 className="font-medium text-3xl">KahaaniBot</h2>
 
@@ -51,7 +68,6 @@ const Footer = () => {
             {[
               { name: "Home", href: "/" },
               { name: "About Us", href: "/about-us" },
-              { name: "Join Our Team", href: "#" },
             ].map((item) => (
               <a
                 key={item.name}
@@ -61,6 +77,12 @@ const Footer = () => {
                 {item.name}
               </a>
             ))}
+            <button
+              className="hover:text-secondary cursor-pointer"
+              onClick={() => setIsJoinTeamModalOpen(true)}
+            >
+              Join Our Team
+            </button>
           </div>
 
           <div className="flex items-center gap-4 md:gap-3 justify-center md:justify-start">
@@ -74,7 +96,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Right Section */}
         <div className="flex flex-col items-center md:items-start gap-6 text-center md:text-left">
           <p className="text-2xl max-w-xl">
             Never miss a moment of storytelling magic.
@@ -103,13 +124,11 @@ const Footer = () => {
           </span>
         </div>
 
-        {/* Bottom Row */}
         <div className="col-span-1 md:col-span-2 flex flex-col md:flex-row items-center md:justify-between border-t-2 border-t-white pt-6 gap-4 md:gap-0 text-center md:text-left">
           <div className="flex flex-wrap justify-center md:justify-start items-center gap-4 md:gap-6">
             {[
               { name: "Privacy Policy", href: "#" },
               { name: "Terms of Service", href: "#" },
-              { name: "Contact Us", href: "#" },
             ].map((link) => (
               <a
                 key={link.name}
@@ -119,6 +138,12 @@ const Footer = () => {
                 {link.name}
               </a>
             ))}
+            <button
+              className="underline hover:text-secondary cursor-pointer"
+              onClick={() => setIsContactModalOpen(true)}
+            >
+              Contact Us
+            </button>
           </div>
           <p>© {new Date().getFullYear()} KahaaniBot. All rights reserved.</p>
         </div>

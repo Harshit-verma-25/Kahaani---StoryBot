@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { generateStory } from "@/app/actions/GenerateStory";
 import StoryReader from "@/app/components/storyReader";
 import { RiLoader2Fill } from "react-icons/ri";
+import CustomSelect from "@/app/components/forms/customSelect";
 
 const GenerateStoryPage = () => {
   const loadingMessages = [
@@ -35,6 +36,22 @@ const GenerateStoryPage = () => {
     "Full Story" | "Summary" | "Moral"
   >("Full Story");
 
+  const languageOptions: Array<{
+    value: StoryData["language"];
+    label: string;
+  }> = [
+    { value: "hindi", label: "Hindi" },
+    { value: "english", label: "English" },
+    { value: "marathi", label: "Marathi" },
+    { value: "bengali", label: "Bengali" },
+    { value: "tamil", label: "Tamil" },
+    { value: "telugu", label: "Telugu" },
+    { value: "kannada", label: "Kannada" },
+    { value: "malayalam", label: "Malayalam" },
+    { value: "gujarati", label: "Gujarati" },
+    { value: "punjabi", label: "Punjabi" },
+  ];
+
   useEffect(() => {
     let intervalId = null;
 
@@ -58,9 +75,7 @@ const GenerateStoryPage = () => {
   }, [loading]);
 
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement
-    >,
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
   ) => {
     const { id, value } = e.target;
     setStoryData((prev) => ({ ...prev, [id]: value }));
@@ -140,7 +155,7 @@ const GenerateStoryPage = () => {
                   cols={50}
                   placeholder="Example: A brave little elephant who overcomes challenges to find his way back home."
                   id="prompt"
-                  className="outline-none resize-none p-2 border border-primary rounded-xl w-full"
+                  className="outline-none resize-none p-2 border border-primary rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-primary"
                   value={storyData.prompt}
                   onChange={handleChange}
                 />
@@ -153,7 +168,7 @@ const GenerateStoryPage = () => {
                   type="text"
                   placeholder="Example: Honesty"
                   id="moral"
-                  className="outline-none p-2 border border-primary rounded-xl w-full"
+                  className="outline-none p-2 border border-primary rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-primary"
                   value={storyData.moral}
                   onChange={handleChange}
                 />
@@ -163,18 +178,15 @@ const GenerateStoryPage = () => {
                 <label htmlFor="language" className="text-md font-medium">
                   Choose Language <span className="text-red-500">*</span>
                 </label>
-                <select
+                <CustomSelect
                   id="language"
-                  className="outline-none p-2 border border-primary rounded-xl w-full :focus:border-secondary transition"
                   value={storyData.language}
-                  onChange={handleChange}
-                >
-                  {["hindi", "english"].map((lang) => (
-                    <option key={lang} value={lang}>
-                      {lang.charAt(0).toUpperCase() + lang.slice(1)}
-                    </option>
-                  ))}
-                </select>
+                  options={languageOptions}
+                  placeholder="Select language"
+                  onChange={(value) =>
+                    setStoryData((prev) => ({ ...prev, language: value }))
+                  }
+                />
               </div>
 
               <button

@@ -5,10 +5,11 @@ import { HiMiniSpeakerWave } from "react-icons/hi2";
 import { IoPauseCircleOutline } from "react-icons/io5";
 import { RiRestartLine } from "react-icons/ri";
 import { FaRegCircleStop } from "react-icons/fa6";
+import { StoryData } from "@/app/lib/types";
 
 type Props = {
   story: string;
-  language?: "english" | "hindi";
+  language?: StoryData["language"];
   rate?: number;
   pitch?: number;
 };
@@ -29,7 +30,7 @@ export default function StoryReader({
   pitch = 1,
 }: Props) {
   const sentences = useMemo(() => splitIntoSentences(story), [story]);
-  
+
   const [current, setCurrent] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const isPlayingRef = useRef(false); // synchronous mirror of isPlaying
@@ -84,7 +85,7 @@ export default function StoryReader({
 
       // fallback: any Hindi voice
       const fallbackHindi = voices.find((v) =>
-        v.lang?.toLowerCase().startsWith("hi")
+        v.lang?.toLowerCase().startsWith("hi"),
       );
       if (fallbackHindi) return fallbackHindi;
     } else if (language === "english") {
@@ -93,7 +94,7 @@ export default function StoryReader({
         (v) =>
           v.name?.toLowerCase().includes("google uk english") ||
           v.name === "Google UK English Female" ||
-          v.name === "Google UK English Male"
+          v.name === "Google UK English Male",
       );
       if (googleUK) return googleUK;
 
@@ -301,8 +302,8 @@ export default function StoryReader({
 
       {!chosenVoice && (
         <p className="mt-4 text-sm text-neutral-500">
-          Tip: your browser&apos;s TTS voice for “{language}” wasn&apos;t found. It will
-          use the default voice.
+          Tip: your browser&apos;s TTS voice for “{language}” wasn&apos;t found.
+          It will use the default voice.
         </p>
       )}
     </div>

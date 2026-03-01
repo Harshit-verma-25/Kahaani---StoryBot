@@ -72,7 +72,7 @@ const GenerateStoryPage = () => {
         clearInterval(intervalId);
       }
     };
-  }, [loading]);
+  }, [loading, loadingMessages]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,

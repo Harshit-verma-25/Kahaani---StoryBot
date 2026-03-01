@@ -14,6 +14,70 @@ type Props = {
   pitch?: number;
 };
 
+const LANGUAGE_VOICE_CONFIG: Record<
+  StoryData["language"],
+  {
+    langPrefixes: string[];
+    preferredVoiceNameIncludes: string[];
+    fallbackUtteranceLang: string;
+  }
+> = {
+  english: {
+    langPrefixes: ["en-gb", "en-in", "en"],
+    preferredVoiceNameIncludes: [
+      "google uk english",
+      "google english",
+      "microsoft heera",
+    ],
+    fallbackUtteranceLang: "en-IN",
+  },
+  hindi: {
+    langPrefixes: ["hi"],
+    preferredVoiceNameIncludes: ["google हिन्दी", "hindi", "microsoft swara"],
+    fallbackUtteranceLang: "hi-IN",
+  },
+  marathi: {
+    langPrefixes: ["mr"],
+    preferredVoiceNameIncludes: ["marathi"],
+    fallbackUtteranceLang: "mr-IN",
+  },
+  bengali: {
+    langPrefixes: ["bn"],
+    preferredVoiceNameIncludes: ["bengali", "bangla"],
+    fallbackUtteranceLang: "bn-IN",
+  },
+  tamil: {
+    langPrefixes: ["ta"],
+    preferredVoiceNameIncludes: ["tamil"],
+    fallbackUtteranceLang: "ta-IN",
+  },
+  telugu: {
+    langPrefixes: ["te"],
+    preferredVoiceNameIncludes: ["telugu"],
+    fallbackUtteranceLang: "te-IN",
+  },
+  kannada: {
+    langPrefixes: ["kn"],
+    preferredVoiceNameIncludes: ["kannada"],
+    fallbackUtteranceLang: "kn-IN",
+  },
+  malayalam: {
+    langPrefixes: ["ml"],
+    preferredVoiceNameIncludes: ["malayalam"],
+    fallbackUtteranceLang: "ml-IN",
+  },
+  gujarati: {
+    langPrefixes: ["gu"],
+    preferredVoiceNameIncludes: ["gujarati"],
+    fallbackUtteranceLang: "gu-IN",
+  },
+  punjabi: {
+    langPrefixes: ["pa"],
+    preferredVoiceNameIncludes: ["punjabi", "panjabi"],
+    fallbackUtteranceLang: "pa-IN",
+  },
+};
+
 function splitIntoSentences(text: string): string[] {
   const parts =
     text
@@ -77,37 +141,24 @@ export default function StoryReader({
   const chosenVoice = useMemo(() => {
     if (!voices.length) return undefined;
 
-    // Prefer specific Google voices first
-    if (language === "hindi") {
-      // Prefer "Google हिन्दी" if it exists
-      const googleHindi = voices.find((v) => v.name === "Google हिन्दी");
-      if (googleHindi) return googleHindi;
+    const config = LANGUAGE_VOICE_CONFIG[language];
 
-      // fallback: any Hindi voice
-      const fallbackHindi = voices.find((v) =>
-        v.lang?.toLowerCase().startsWith("hi"),
-      );
-      if (fallbackHindi) return fallbackHindi;
-    } else if (language === "english") {
-      // Prefer Google UK English
-      const googleUK = voices.find(
-        (v) =>
-          v.name?.toLowerCase().includes("google uk english") ||
-          v.name === "Google UK English Female" ||
-          v.name === "Google UK English Male",
-      );
-      if (googleUK) return googleUK;
+    const preferredByName = voices.find((voice) =>
+      config.preferredVoiceNameIncludes.some((keyword) =>
+        voice.name?.toLowerCase().includes(keyword.toLowerCase()),
+      ),
+    );
+    if (preferredByName) return preferredByName;
 
-      // fallback: any English (India or UK)
-      const fallbackEnglish =
-        voices.find((v) => v.lang?.toLowerCase().startsWith("en-gb")) ||
-        voices.find((v) => v.lang?.toLowerCase().startsWith("en-in")) ||
-        voices.find((v) => v.lang?.toLowerCase().startsWith("en"));
-      if (fallbackEnglish) return fallbackEnglish;
-    }
+    const fallbackByLanguageCode = voices.find((voice) =>
+      config.langPrefixes.some((prefix) =>
+        voice.lang?.toLowerCase().startsWith(prefix),
+      ),
+    );
+    if (fallbackByLanguageCode) return fallbackByLanguageCode;
 
     // final fallback
-    return voices.find((v) => v.default);
+    return voices.find((v) => v.default) || voices[0];
   }, [voices, language]);
 
   // Cancel any existing speech and clear refs
@@ -120,7 +171,7 @@ export default function StoryReader({
   };
 
   // Speak a sentence index. Defensive: cancel prior, guard double-calls.
-  const speakCurrent = (index: number) => {
+  const speakCurrent = (index: number, useSafeFallback = false) => {
     if (typeof window === "undefined") return;
     if (!sentences[index]) {
       setPlaying(false);
@@ -137,7 +188,18 @@ export default function StoryReader({
     const synth = window.speechSynthesis;
     const u = new SpeechSynthesisUtterance(sentences[index]);
     utterRef.current = u;
-    if (chosenVoice) u.voice = chosenVoice;
+    if (useSafeFallback) {
+      const defaultVoice = voices.find((voice) => voice.default) || voices[0];
+      if (defaultVoice) {
+        u.voice = defaultVoice;
+        u.lang = defaultVoice.lang;
+      }
+    } else {
+      if (chosenVoice) {
+        u.voice = chosenVoice;
+        u.lang = chosenVoice.lang;
+      }
+    }
     u.rate = rate;
     u.pitch = pitch;
 
@@ -176,6 +238,15 @@ export default function StoryReader({
     u.onerror = () => {
       utterRef.current = null;
       speakingRef.current = false;
+
+      if (!useSafeFallback) {
+        setTimeout(() => {
+          if (!isPlayingRef.current) return;
+          speakCurrent(index, true);
+        }, 30);
+        return;
+      }
+
       setPlaying(false);
     };
 

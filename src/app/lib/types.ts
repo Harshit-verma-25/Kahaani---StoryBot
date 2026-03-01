@@ -22,16 +22,5 @@ export interface GeneratedStory {
 }
 
 export interface inBuiltStory {
-  [key: string]: {
-    english: GeneratedStory;
-    hindi: GeneratedStory;
-    marathi: GeneratedStory;
-    bengali: GeneratedStory;
-    tamil: GeneratedStory;
-    telugu: GeneratedStory;
-    kannada: GeneratedStory;
-    malayalam: GeneratedStory;
-    gujarati: GeneratedStory;
-    punjabi: GeneratedStory;
-  };
+  [key: string]: Partial<Record<StoryData["language"], GeneratedStory>>;
 }

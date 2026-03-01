@@ -39,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scrollbar-brand">
       <body className={`font-fredoka antialiased`}>
-        <ToastContainer />
+        <ToastContainer autoClose={2000} />
         <Navbar />
         {children}
         <Footer />

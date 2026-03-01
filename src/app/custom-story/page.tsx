@@ -60,7 +60,7 @@ const GenerateStoryPage = () => {
   const handleChange = (
     e: React.ChangeEvent<
       HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { id, value } = e.target;
     setStoryData((prev) => ({ ...prev, [id]: value }));
@@ -68,17 +68,19 @@ const GenerateStoryPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
 
-    const requiredFields = ["prompt", "language"];
-    for (const field of requiredFields) {
-      if (!storyData[field as keyof StoryData]) {
-        toast.warning(`Missing required field: ${field}`);
-        return;
-      }
+    if (!storyData.prompt.trim()) {
+      toast.warning("Please enter a prompt.");
+      return;
+    }
+
+    if (!storyData.language.trim()) {
+      toast.warning("Please select a language.");
+      return;
     }
 
     try {
+      setLoading(true);
       const response = await generateStory(storyData);
 
       if (response) {
@@ -94,7 +96,9 @@ const GenerateStoryPage = () => {
       }
     } catch (error) {
       console.error("Error generating story:", error);
-      toast.error("Oops! The storyteller got a little lost. Please try asking again!");
+      toast.error(
+        "Oops! The storyteller got a little lost. Please try asking again!",
+      );
     } finally {
       setLoading(false);
     }

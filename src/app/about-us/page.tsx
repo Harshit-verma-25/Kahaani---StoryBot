@@ -96,7 +96,7 @@ const AboutUsPage = () => {
         {teamDetails.map((teamDetail, index) => (
           <div className="flex flex-col md:flex-row items-center md:items-end" key={index}>
             {/* Profile */}
-            <div className="max-w-48 h-48 flex bg-[#FEECFF] pt-1 overflow-hidden relative cursor-pointer hover:shadow-lg transition hover:scale-[1.02]">
+            <div className="min-w-48 h-48 flex bg-[#FEECFF] pt-1 overflow-hidden relative cursor-pointer hover:shadow-lg transition hover:scale-[1.02]">
               <Image
                 src={teamDetail.profile}
                 alt={teamDetail.name}

@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { GeneratedStory, inBuiltStory } from "@/app/lib/types";
+import { GeneratedStory, inBuiltStory } from "@/app/lib/types/types";
 import StoryReader from "@/app/components/storyReader";
-import storyData from "@/app/data/stories.json";
+import StoryFormData from "@/app/data/stories.json";
 
 const StoryPage = () => {
   const { slug } = useParams();
@@ -23,7 +23,7 @@ const StoryPage = () => {
   useEffect(() => {
     const fetchStory = async () => {
       try {
-        const storyInfo = (storyData as inBuiltStory)[slug as string];
+        const storyInfo = (StoryFormData as inBuiltStory)[slug as string];
         if (!storyInfo) {
           console.error("Story not found for slug:", slug);
           return;

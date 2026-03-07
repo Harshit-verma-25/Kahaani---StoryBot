@@ -1,4 +1,4 @@
-export interface StoryData {
+export interface StoryFormData {
   prompt: string;
   moral: string;
   language:
@@ -22,5 +22,5 @@ export interface GeneratedStory {
 }
 
 export interface inBuiltStory {
-  [key: string]: Partial<Record<StoryData["language"], GeneratedStory>>;
+  [key: string]: Partial<Record<StoryFormData["language"], GeneratedStory>>;
 }

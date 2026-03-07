@@ -5,17 +5,17 @@ import { HiMiniSpeakerWave } from "react-icons/hi2";
 import { IoPauseCircleOutline } from "react-icons/io5";
 import { RiRestartLine } from "react-icons/ri";
 import { FaRegCircleStop } from "react-icons/fa6";
-import { StoryData } from "@/app/lib/types";
+import { StoryFormData } from "@/app/lib/types/types";
 
 type Props = {
   story: string;
-  language?: StoryData["language"];
+  language?: StoryFormData["language"];
   rate?: number;
   pitch?: number;
 };
 
 const LANGUAGE_VOICE_CONFIG: Record<
-  StoryData["language"],
+  StoryFormData["language"],
   {
     langPrefixes: string[];
     preferredVoiceNameIncludes: string[];

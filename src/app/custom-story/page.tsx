@@ -3,12 +3,13 @@
 import Image from "next/image";
 import { FaMagic } from "react-icons/fa";
 import { useState, useEffect } from "react";
-import { GeneratedStory, StoryData } from "@/app/lib/types";
+import { GeneratedStory, StoryFormData } from "@/app/lib/types/types";
 import { toast } from "react-toastify";
 import { generateStory } from "@/app/actions/GenerateStory";
 import StoryReader from "@/app/components/storyReader";
 import { RiLoader2Fill } from "react-icons/ri";
 import CustomSelect from "@/app/components/forms/customSelect";
+import axios from "axios";
 
 const GenerateStoryPage = () => {
   const loadingMessages = [
@@ -20,7 +21,7 @@ const GenerateStoryPage = () => {
   ];
 
   const [currentMessage, setCurrentMessage] = useState(loadingMessages[0]);
-  const [storyData, setStoryData] = useState<StoryData>({
+  const [StoryFormData, setStoryFormData] = useState<StoryFormData>({
     prompt: "",
     moral: "",
     language: "hindi",
@@ -37,7 +38,7 @@ const GenerateStoryPage = () => {
   >("Full Story");
 
   const languageOptions: Array<{
-    value: StoryData["language"];
+    value: StoryFormData["language"];
     label: string;
   }> = [
     { value: "hindi", label: "Hindi" },
@@ -78,32 +79,33 @@ const GenerateStoryPage = () => {
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
   ) => {
     const { id, value } = e.target;
-    setStoryData((prev) => ({ ...prev, [id]: value }));
+    setStoryFormData((prev) => ({ ...prev, [id]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!storyData.prompt.trim()) {
+    if (!StoryFormData.prompt.trim()) {
       toast.warning("Please enter a prompt.");
       return;
     }
 
-    if (!storyData.language.trim()) {
+    if (!StoryFormData.language.trim()) {
       toast.warning("Please select a language.");
       return;
     }
 
     try {
       setLoading(true);
-      const response = await generateStory(storyData);
+      // const response = await generateStory(StoryFormData);
+      const response = await axios.post("/api/generate-story", StoryFormData);
 
       if (response) {
         setOutput({
-          story: response.story,
-          summary: response.summary,
-          title: response.title,
-          moral: response.moral,
+          story: response.data.story,
+          summary: response.data.summary,
+          title: response.data.title,
+          moral: response.data.moral,
         });
         toast.success("Story generated successfully!");
       } else {
@@ -156,7 +158,7 @@ const GenerateStoryPage = () => {
                   placeholder="Example: A brave little elephant who overcomes challenges to find his way back home."
                   id="prompt"
                   className="outline-none resize-none p-2 border border-primary rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-primary"
-                  value={storyData.prompt}
+                  value={StoryFormData.prompt}
                   onChange={handleChange}
                 />
               </div>
@@ -169,7 +171,7 @@ const GenerateStoryPage = () => {
                   placeholder="Example: Honesty"
                   id="moral"
                   className="outline-none p-2 border border-primary rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-primary"
-                  value={storyData.moral}
+                  value={StoryFormData.moral}
                   onChange={handleChange}
                 />
               </div>
@@ -180,11 +182,11 @@ const GenerateStoryPage = () => {
                 </label>
                 <CustomSelect
                   id="language"
-                  value={storyData.language}
+                  value={StoryFormData.language}
                   options={languageOptions}
                   placeholder="Select language"
                   onChange={(value) =>
-                    setStoryData((prev) => ({ ...prev, language: value }))
+                    setStoryFormData((prev) => ({ ...prev, language: value }))
                   }
                 />
               </div>
@@ -254,7 +256,7 @@ const GenerateStoryPage = () => {
               {activeTab === "Full Story" && (
                 <StoryReader
                   story={output.story}
-                  language={storyData.language}
+                  language={StoryFormData.language}
                 />
               )}
               {activeTab === "Summary" && (

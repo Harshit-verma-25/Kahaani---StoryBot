@@ -5,7 +5,6 @@ import { FaMagic } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { GeneratedStory, StoryFormData } from "@/app/lib/types/types";
 import { toast } from "react-toastify";
-import { generateStory } from "@/app/actions/GenerateStory";
 import StoryReader from "@/app/components/storyReader";
 import { RiLoader2Fill } from "react-icons/ri";
 import CustomSelect from "@/app/components/forms/customSelect";

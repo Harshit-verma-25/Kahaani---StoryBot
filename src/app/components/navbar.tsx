@@ -11,7 +11,7 @@ const Navbar = () => {
   const router = useRouter();
   const navItems = [
     { name: "Home", link: "/" },
-    { name: "Custom Story", link: "/custom-story" },
+    { name: "Custom Story", link: "/custom-story?reset=1" },
     { name: "About Us", link: "/about-us" },
   ];
 
@@ -27,7 +27,10 @@ const Navbar = () => {
 
   return (
     <nav className="relative w-full h-18 shadow-lg flex items-center bg-background lg:px-12 px-4">
-      <div className="flex items-center mr-auto cursor-pointer" onClick={() => router.push("/")}>
+      <div
+        className="flex items-center mr-auto cursor-pointer"
+        onClick={() => router.push("/")}
+      >
         <Image src="/Logo.png" alt="Logo" width={50} height={50} priority />
         <span className="max-sm:hidden font-medium text-3xl bg-clip-text text-transparent bg-[linear-gradient(90deg,#6122C0_0%,#7846C2_12.98%,#7B49C6_25.48%,#8D77D7_49.52%,#7B49C6_77.4%,#7846C2_89.9%,#6122C0_100%)]">
           KahaaniBot
@@ -50,7 +53,11 @@ const Navbar = () => {
       <div className="hidden lg:block">
         <div className="flex font-medium items-center gap-8 text-secondary">
           {navItems.map((item) => (
-            <Link key={item.name} href={item.link} className="text-lg hover:scale-105 transition">
+            <Link
+              key={item.name}
+              href={item.link}
+              className="text-lg hover:scale-105 transition"
+            >
               {item.name}
             </Link>
           ))}

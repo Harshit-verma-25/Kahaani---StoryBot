@@ -35,7 +35,7 @@ const HeroSection = () => {
                       priority
                     />
                   </div>
-                )
+                ),
               )}
             </div>
 
@@ -71,7 +71,7 @@ const HeroSection = () => {
         </p>
 
         <div className="flex flex-col md:flex-row gap-4">
-          <Link href="/custom-story">
+          <Link href="/custom-story?reset=1">
             <button className="px-6 py-3 font-medium bg-primary text-white rounded-full cursor-pointer hover:scale-105 transition-all">
               Generate Custom Story
               <FaMagic className="inline-block ml-2 mb-1" size={18} />

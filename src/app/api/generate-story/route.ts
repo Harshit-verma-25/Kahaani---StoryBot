@@ -15,17 +15,11 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  let result: {
-    id: number;
-    title: string;
-    story: string;
-    summary: string;
-    moral: string;
-  };
+  const normalizedPrompt = prompt.trim();
 
   const SYSTEM_INSTRUCTIONS = `
     You are KahaaniBot, a warm, wise, and friendly storyteller for young children aged 5-12.
-    Your stories are about Indian mythology (like the Ramayana, Mahabharata, tales of Ganesha, Krishna, Hanuman, etc) and classic moral fables (like Panchatantra or Jataka tales).
+    Your stories are about Indian mythology (like the Ramayana, Mahabharata, tales of Ganesha, Krishna, Hanuman, etc), classic moral fables (like Panchatantra, Jataka tales, etc), nature stories & folklore.
     
     You will be given a prompt and must generate a story based on it.
     
@@ -52,31 +46,53 @@ export async function POST(request: NextRequest) {
   `.trim();
 
   try {
+    const { data: existingStory } = await supabase
+      .from("stories")
+      .select("id, title, story_text, summary, moral")
+      .eq("prompt", normalizedPrompt)
+      .eq("language", language)
+      .order("id", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (existingStory) {
+      return NextResponse.json(
+        {
+          id: existingStory.id,
+          title: existingStory.title,
+          story: existingStory.story_text,
+          summary: existingStory.summary,
+          moral: existingStory.moral,
+        },
+        { status: 200 },
+      );
+    }
+
     const topicPrompt = `
-Extract the main animal or character from this prompt.
-Return only one word.
+      Extract the main animal or character from this prompt.
+      Return only one word.
+      Prompt: "${normalizedPrompt}"
+    `;
 
-Prompt: "${prompt}"
-`;
-
-    const topicRes = await genAI.models.generateContent({
-      model: process.env.TOPIC_EXTRACTION_MODEL || "gemini-2.5-flash",
-      contents: topicPrompt,
-    });
+    const [topicRes, embeddingResponse] = await Promise.all([
+      genAI.models.generateContent({
+        model: process.env.TOPIC_EXTRACTION_MODEL || "gemini-2.5-flash",
+        contents: topicPrompt,
+      }),
+      genAI.models.embedContent({
+        model: process.env.EMBEDDING_MODEL || "gemini-embedding-001",
+        contents: normalizedPrompt,
+        config: {
+          outputDimensionality: 768,
+        },
+      }),
+    ]);
 
     if (!topicRes || !topicRes.text) {
       throw new Error("Failed to extract topic from the prompt.");
     }
 
     const topic = topicRes.text.trim().toLowerCase();
-
-    const embeddingResponse = await genAI.models.embedContent({
-      model: process.env.EMBEDDING_MODEL || "gemini-embedding-001",
-      contents: prompt,
-      config: {
-        outputDimensionality: 768,
-      },
-    });
 
     if (!embeddingResponse || !embeddingResponse.embeddings) {
       throw new Error("Failed to generate embedding for the prompt.");
@@ -95,20 +111,21 @@ Prompt: "${prompt}"
     );
 
     if (similarStories && similarStories.length > 0) {
-      result = {
-        id: similarStories[0].id,
-        title: similarStories[0].title,
-        story: similarStories[0].story_text,
-        summary: similarStories[0].summary,
-        moral: similarStories[0].moral,
-      };
-
-      return NextResponse.json(result, { status: 200 });
+      return NextResponse.json(
+        {
+          id: similarStories[0].id,
+          title: similarStories[0].title,
+          story: similarStories[0].story_text,
+          summary: similarStories[0].summary,
+          moral: similarStories[0].moral,
+        },
+        { status: 200 },
+      );
     }
 
     const model = await genAI.models.generateContent({
       model: process.env.STORY_GENERATION_MODEL || "gemini-2.5-flash",
-      contents: prompt,
+      contents: normalizedPrompt,
       config: {
         systemInstruction: SYSTEM_INSTRUCTIONS,
         responseMimeType: "application/json",
@@ -144,7 +161,7 @@ Prompt: "${prompt}"
       .from("stories")
       .insert({
         title: data.title,
-        prompt,
+        prompt: normalizedPrompt,
         story_text: data.story,
         language,
         summary: data.summary,
@@ -169,17 +186,17 @@ Prompt: "${prompt}"
       throw new Error("Failed to save story embedding");
     }
 
-    result = {
-      id: story.id,
-      title: data.title,
-      story: data.story,
-      summary: data.summary,
-      moral: data.moral,
-    };
-
-    return NextResponse.json(result, { status: 200 });
-    // return NextResponse.json({ staus: 200 });
-  } catch (error) {
+    return NextResponse.json(
+      {
+        id: story.id,
+        title: data.title,
+        story: data.story,
+        summary: data.summary,
+        moral: data.moral,
+      },
+      { status: 200 },
+    );
+  } catch {
     return NextResponse.json(
       { error: "Failed to generate story" },
       { status: 500 },

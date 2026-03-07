@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { FaMagic } from "react-icons/fa";
 import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { GeneratedStory, StoryFormData } from "@/app/lib/types/types";
 import { toast } from "react-toastify";
 import StoryReader from "@/app/components/storyReader";
@@ -10,13 +11,26 @@ import { RiLoader2Fill } from "react-icons/ri";
 import CustomSelect from "@/app/components/forms/customSelect";
 import axios from "axios";
 
+const EMPTY_OUTPUT: GeneratedStory = {
+  story: "",
+  summary: "",
+  title: "",
+  moral: "",
+};
+
 const GenerateStoryPage = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const loadingMessages = [
     "Generating...",
     "Thinking...",
     "Creating magic...",
     "Weaving your tale...",
     "Gathering ideas...",
+    "Almost there...",
+    "Putting on the finishing touches...",
+    "Finalizing your story...",
+    "Just a moment more...",
   ];
 
   const [currentMessage, setCurrentMessage] = useState(loadingMessages[0]);
@@ -26,12 +40,7 @@ const GenerateStoryPage = () => {
     language: "hindi",
   });
   const [loading, setLoading] = useState(false);
-  const [output, setOutput] = useState<GeneratedStory>({
-    story: "",
-    summary: "",
-    title: "",
-    moral: "",
-  });
+  const [output, setOutput] = useState<GeneratedStory>(EMPTY_OUTPUT);
   const [activeTab, setActiveTab] = useState<
     "Full Story" | "Summary" | "Moral"
   >("Full Story");
@@ -62,7 +71,7 @@ const GenerateStoryPage = () => {
           const nextIndex = (currentIndex + 1) % loadingMessages.length;
           return loadingMessages[nextIndex];
         });
-      }, 1500);
+      }, 1750);
     } else {
       setCurrentMessage(loadingMessages[0]);
     }
@@ -73,6 +82,14 @@ const GenerateStoryPage = () => {
       }
     };
   }, [loading, loadingMessages]);
+
+  useEffect(() => {
+    if (searchParams.get("reset") !== "1") return;
+
+    setOutput(EMPTY_OUTPUT);
+    setActiveTab("Full Story");
+    router.replace("/custom-story", { scroll: false });
+  }, [searchParams, router]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
@@ -96,7 +113,6 @@ const GenerateStoryPage = () => {
 
     try {
       setLoading(true);
-      // const response = await generateStory(StoryFormData);
       const response = await axios.post("/api/generate-story", StoryFormData);
 
       if (response) {

@@ -103,6 +103,7 @@ const AboutUsPage = () => {
                 className="h-full w-full object-cover relative z-10"
                 width={120}
                 height={120}
+                priority
               />
             </div>
 

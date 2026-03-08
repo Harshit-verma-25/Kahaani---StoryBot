@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { FaMagic } from "react-icons/fa";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { GeneratedStory, StoryFormData } from "@/app/lib/types/types";
 import { toast } from "react-toastify";
@@ -18,20 +18,23 @@ const EMPTY_OUTPUT: GeneratedStory = {
   moral: "",
 };
 
-const GenerateStoryPage = () => {
+const GenerateStoryPageContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const loadingMessages = [
-    "Generating...",
-    "Thinking...",
-    "Creating magic...",
-    "Weaving your tale...",
-    "Gathering ideas...",
-    "Almost there...",
-    "Putting on the finishing touches...",
-    "Finalizing your story...",
-    "Just a moment more...",
-  ];
+  const loadingMessages = useMemo(
+    () => [
+      "Generating...",
+      "Thinking...",
+      "Creating magic...",
+      "Weaving your tale...",
+      "Gathering ideas...",
+      "Almost there...",
+      "Putting on the finishing touches...",
+      "Finalizing your story...",
+      "Just a moment more...",
+    ],
+    [],
+  );
 
   const [currentMessage, setCurrentMessage] = useState(loadingMessages[0]);
   const [StoryFormData, setStoryFormData] = useState<StoryFormData>({
@@ -289,6 +292,14 @@ const GenerateStoryPage = () => {
         )}
       </div>
     </section>
+  );
+};
+
+const GenerateStoryPage = () => {
+  return (
+    <Suspense fallback={null}>
+      <GenerateStoryPageContent />
+    </Suspense>
   );
 };
 

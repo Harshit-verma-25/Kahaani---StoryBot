@@ -5,7 +5,7 @@ export interface StoryFormData {
     | "hindi"
     | "english"
     | "marathi"
-    | "bengali"
+    | "bangla"
     | "tamil"
     | "telugu"
     | "kannada"

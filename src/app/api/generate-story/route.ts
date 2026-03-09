@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
 
     const [topicRes, embeddingResponse] = await Promise.all([
       genAI.models.generateContent({
-        model: process.env.TOPIC_EXTRACTION_MODEL || "gemini-2.5-flash",
+        model: process.env.STORY_GENERATION_MODEL || "gemini-2.5-flash",
         contents: topicPrompt,
       }),
       genAI.models.embedContent({

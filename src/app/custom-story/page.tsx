@@ -52,16 +52,16 @@ const GenerateStoryPageContent = () => {
     value: StoryFormData["language"];
     label: string;
   }> = [
-    { value: "hindi", label: "Hindi" },
+    { value: "hindi", label: "हिंदी (Hindi)" },
     { value: "english", label: "English" },
-    { value: "marathi", label: "Marathi" },
-    { value: "bengali", label: "Bengali" },
-    { value: "tamil", label: "Tamil" },
-    { value: "telugu", label: "Telugu" },
-    { value: "kannada", label: "Kannada" },
-    { value: "malayalam", label: "Malayalam" },
-    { value: "gujarati", label: "Gujarati" },
-    { value: "punjabi", label: "Punjabi" },
+    { value: "marathi", label: "मराठी (Marathi)" },
+    { value: "bangla", label: "বাংলা (Bengali)" },
+    { value: "tamil", label: "தமிழ் (Tamil)" },
+    { value: "telugu", label: "తెలుగు (Telugu)" },
+    { value: "kannada", label: "ಕನ್ನಡ (Kannada)" },
+    { value: "malayalam", label: "മലയാളം (Malayalam)" },
+    { value: "gujarati", label: "ગુજરાતી (Gujarati)" },
+    { value: "punjabi", label: "ਪੰਜਾਬੀ (Punjabi)" },
   ];
 
   useEffect(() => {

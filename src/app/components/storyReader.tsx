@@ -41,7 +41,7 @@ const LANGUAGE_VOICE_CONFIG: Record<
     preferredVoiceNameIncludes: ["marathi"],
     fallbackUtteranceLang: "mr-IN",
   },
-  bengali: {
+  bangla: {
     langPrefixes: ["bn"],
     preferredVoiceNameIncludes: ["bengali", "bangla"],
     fallbackUtteranceLang: "bn-IN",

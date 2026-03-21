@@ -2,7 +2,7 @@ import axios, { Method } from "axios";
 import { supabase } from "@/app/lib/supabase/client";
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_SITE_URL,
+  baseURL: process.env.NEXT_PUBLIC_APP_URL,
   withCredentials: true,
 });
 
@@ -11,7 +11,6 @@ const api = axios.create({
 // @param url - API endpoint
 // @param data - Request body
 // @param params - Query params
-
 
 export async function apiRequestClient<T>(
   method: Method,

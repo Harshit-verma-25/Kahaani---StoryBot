@@ -1,133 +1,66 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import { GeneratedStory, inBuiltStory } from "@/app/lib/types/types";
-import StoryReader from "@/app/components/storyReader";
+import type { Metadata } from "next";
+import { inBuiltStory } from "@/app/lib/types/types";
 import StoryFormData from "@/app/data/stories.json";
+import StoryPageClient from "./storyPageClient";
 
-const StoryPage = () => {
-  const { slug } = useParams();
-
-  const [activeTab, setActiveTab] = useState<
-    "Full Story" | "Summary" | "Moral"
-  >("Full Story");
-  const [language, setLanguage] = useState<"english" | "hindi">("english");
-  const [output, setOutput] = useState<GeneratedStory>({
-    story: "",
-    summary: "",
-    title: "",
-    moral: "",
-  });
-
-  useEffect(() => {
-    const fetchStory = async () => {
-      try {
-        const storyInfo = (StoryFormData as inBuiltStory)[slug as string];
-        if (!storyInfo) {
-          console.error("Story not found for slug:", slug);
-          return;
-        }
-        const storyInLanguage = storyInfo[language];
-        if (!storyInLanguage) {
-          console.error(`Story not found in selected language: ${language}`);
-          return;
-        }
-        setOutput({
-          story: storyInLanguage.story,
-          summary: storyInLanguage.summary,
-          title: storyInLanguage.title,
-          moral: storyInLanguage.moral,
-        });
-      } catch (error) {
-        console.error("Error fetching story:", error);
-      }
-    };
-
-    fetchStory();
-  }, [slug, language]);
-
-  return (
-    <section className="min-h-[calc(100vh-4.5rem)] bg-background flex items-center justify-center">
-      <div className="max-w-7xl w-full mx-auto flex flex-col items-center justify-center gap-6 px-4">
-        <div className="text-center max-w-3xl">
-          <h1 className="text-xl sm:text-2xl lg:text-4xl text-primary font-medium">
-            &quot;{output.title}&quot;
-          </h1>
-        </div>
-
-        <div className="flex flex-col items-center gap-2">
-          <div className="bg-primary/20 border-2 border-primary rounded-full p-1 flex items-center">
-            <p
-              className={`px-3 py-1 rounded-full w-fit text-xs cursor-pointer ${
-                language === "english"
-                  ? "bg-primary text-white"
-                  : "text-primary"
-              }`}
-              onClick={() => setLanguage("english")}
-            >
-              English
-            </p>
-            <p
-              className={`px-3 py-1 rounded-full w-fit text-xs cursor-pointer ${
-                language === "hindi" ? "bg-primary text-white" : "text-primary"
-              }`}
-              onClick={() => setLanguage("hindi")}
-            >
-              हिंदी
-            </p>
-          </div>
-
-          <div className="bg-primary/20 border-2 border-primary rounded-full p-1 flex items-center">
-            <p
-              className={`px-3 py-1 rounded-full w-fit font-medium cursor-pointer ${
-                activeTab === "Full Story"
-                  ? "bg-primary text-white"
-                  : "text-primary"
-              }`}
-              onClick={() => setActiveTab("Full Story")}
-            >
-              Full Story
-            </p>
-            <p
-              className={`px-3 py-1 rounded-full w-fit font-medium cursor-pointer ${
-                activeTab === "Summary"
-                  ? "bg-primary text-white"
-                  : "text-primary"
-              }`}
-              onClick={() => setActiveTab("Summary")}
-            >
-              Summary
-            </p>
-            <p
-              className={`px-3 py-1 rounded-full w-fit font-medium cursor-pointer ${
-                activeTab === "Moral" ? "bg-primary text-white" : "text-primary"
-              }`}
-              onClick={() => setActiveTab("Moral")}
-            >
-              Moral
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-transparent rounded-xl max-w-3xl w-full flex flex-col items-center justify-center">
-          {activeTab === "Full Story" && (
-            <StoryReader story={output.story} language={language} />
-          )}
-          {activeTab === "Summary" && (
-            <p className="space-y-3 text-center text-lg sm:text-xl font-semibold leading-relaxed text-secondary whitespace-pre-line">
-              {output.summary}
-            </p>
-          )}
-          {activeTab === "Moral" && (
-            <p className="space-y-3 text-center text-lg sm:text-xl font-semibold leading-relaxed text-secondary whitespace-pre-line">
-              {output.moral}
-            </p>
-          )}
-        </div>
-      </div>
-    </section>
-  );
+type PageProps = {
+  params: Promise<{
+    slug: string;
+  }>;
 };
 
-export default StoryPage;
+export function generateStaticParams() {
+  const stories = StoryFormData as inBuiltStory;
+  return Object.keys(stories).map((slug) => ({ slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const story = (StoryFormData as inBuiltStory)[slug]?.english;
+
+  if (!story) {
+    return {
+      title: "Story Not Found",
+      description: "The requested story was not found.",
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
+
+  return {
+    title: story.title,
+    description: story.summary,
+    alternates: {
+      canonical: `/stories/${slug}`,
+    },
+    openGraph: {
+      title: story.title,
+      description: story.summary,
+      type: "article",
+      url: `/stories/${slug}`,
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: story.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: story.title,
+      description: story.summary,
+      images: ["/og-image.png"],
+    },
+  };
+}
+
+export default async function StoryPage({ params }: PageProps) {
+  const { slug } = await params;
+  return <StoryPageClient slug={slug} />;
+}

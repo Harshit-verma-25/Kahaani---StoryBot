@@ -15,6 +15,7 @@ const HeroSection = () => {
                 width={25}
                 height={25}
                 alt="3 Purple Lines"
+                priority
               />
             </div>
 
@@ -58,6 +59,7 @@ const HeroSection = () => {
                 width={150}
                 height={20}
                 className="absolute -right-3 -bottom-3 md:-bottom-5"
+                priority
               />
             </span>
           </h1>
@@ -87,10 +89,11 @@ const HeroSection = () => {
 
             <Image
               src="/home/home-4.png"
-              alt="Purple Lines"
+              alt="3 Purple Lines"
               width={25}
               height={25}
               className="absolute -top-3 -right-4 rotate-y-180"
+              priority
             />
           </div>
         </div>

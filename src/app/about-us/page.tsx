@@ -1,4 +1,14 @@
 import Image from "next/image";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Us",
+  description:
+    "Meet the team behind KahaaniBot and discover the technology stack used to build our AI storytelling platform.",
+  alternates: {
+    canonical: "/about-us",
+  },
+};
 
 const AboutUsPage = () => {
   const teamDetails = [
@@ -87,14 +97,19 @@ const AboutUsPage = () => {
           </h2>
           <p className="text-secondary text-base md:text-lg max-w-2xl">
             Young storytellers and tech enthusiasts creating an interactive
-            mythology platform for kids, blending ancient tales with modern technology. Their passion for stories and innovation drives KahaaniBot&apos;s mission to make learning fun and engaging. 
+            mythology platform for kids, blending ancient tales with modern
+            technology. Their passion for stories and innovation drives
+            KahaaniBot&apos;s mission to make learning fun and engaging.
           </p>
         </div>
       </div>
 
       <div className="w-full max-w-7xl flex items-center flex-col lg:flex-row gap-8 justify-evenly">
         {teamDetails.map((teamDetail, index) => (
-          <div className="flex flex-col md:flex-row items-center md:items-end" key={index}>
+          <div
+            className="flex flex-col md:flex-row items-center md:items-end"
+            key={index}
+          >
             {/* Profile */}
             <div className="min-w-48 h-48 flex bg-[#FEECFF] pt-1 overflow-hidden relative cursor-pointer hover:shadow-lg transition hover:scale-[1.02]">
               <Image

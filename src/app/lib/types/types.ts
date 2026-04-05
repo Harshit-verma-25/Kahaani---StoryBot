@@ -1,19 +1,21 @@
+export type languageOption =
+  | "hindi"
+  | "english"
+  | "marathi"
+  | "bangla"
+  | "tamil"
+  | "telugu"
+  | "kannada"
+  | "malayalam"
+  | "gujarati"
+  | "punjabi";
+
+export type FilterType = "all" | "video" | "textual" | languageOption;
 export interface StoryFormData {
   prompt: string;
   moral: string;
-  language:
-    | "hindi"
-    | "english"
-    | "marathi"
-    | "bangla"
-    | "tamil"
-    | "telugu"
-    | "kannada"
-    | "malayalam"
-    | "gujarati"
-    | "punjabi";
+  language: languageOption;
 }
-
 export interface GeneratedStory {
   title: string;
   story: string;

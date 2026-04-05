@@ -10,33 +10,13 @@ import StoryReader from "@/app/components/storyReader";
 import { RiLoader2Fill } from "react-icons/ri";
 import CustomSelect from "@/app/components/forms/customSelect";
 import axios from "axios";
-
-const EMPTY_OUTPUT: GeneratedStory = {
-  story: "",
-  summary: "",
-  title: "",
-  moral: "",
-};
+import { EMPTY_OUTPUT, LOADING_MESSAGES, LANGUAGE_OPTIONS } from "@/app/lib/types/constant";
 
 const GenerateStoryPageContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const loadingMessages = useMemo(
-    () => [
-      "Generating...",
-      "Thinking...",
-      "Creating magic...",
-      "Weaving your tale...",
-      "Gathering ideas...",
-      "Almost there...",
-      "Putting on the finishing touches...",
-      "Finalizing your story...",
-      "Just a moment more...",
-    ],
-    [],
-  );
 
-  const [currentMessage, setCurrentMessage] = useState(loadingMessages[0]);
+  const [currentMessage, setCurrentMessage] = useState(LOADING_MESSAGES[0]);
   const [StoryFormData, setStoryFormData] = useState<StoryFormData>({
     prompt: "",
     moral: "",
@@ -48,21 +28,7 @@ const GenerateStoryPageContent = () => {
     "Full Story" | "Summary" | "Moral"
   >("Full Story");
 
-  const languageOptions: Array<{
-    value: StoryFormData["language"];
-    label: string;
-  }> = [
-    { value: "hindi", label: "हिंदी (Hindi)" },
-    { value: "english", label: "English" },
-    { value: "marathi", label: "मराठी (Marathi)" },
-    { value: "bangla", label: "বাংলা (Bengali)" },
-    { value: "tamil", label: "தமிழ் (Tamil)" },
-    { value: "telugu", label: "తెలుగు (Telugu)" },
-    { value: "kannada", label: "ಕನ್ನಡ (Kannada)" },
-    { value: "malayalam", label: "മലയാളം (Malayalam)" },
-    { value: "gujarati", label: "ગુજરાતી (Gujarati)" },
-    { value: "punjabi", label: "ਪੰਜਾਬੀ (Punjabi)" },
-  ];
+  
 
   useEffect(() => {
     let intervalId: ReturnType<typeof setInterval> | null = null;
@@ -70,13 +36,13 @@ const GenerateStoryPageContent = () => {
     if (loading) {
       intervalId = setInterval(() => {
         setCurrentMessage((prevMessage) => {
-          const currentIndex = loadingMessages.indexOf(prevMessage);
-          const nextIndex = (currentIndex + 1) % loadingMessages.length;
-          return loadingMessages[nextIndex];
+          const currentIndex = LOADING_MESSAGES.indexOf(prevMessage);
+          const nextIndex = (currentIndex + 1) % LOADING_MESSAGES.length;
+          return LOADING_MESSAGES[nextIndex];
         });
       }, 1750);
     } else {
-      setCurrentMessage(loadingMessages[0]);
+      setCurrentMessage(LOADING_MESSAGES[0]);
     }
 
     return () => {
@@ -84,7 +50,7 @@ const GenerateStoryPageContent = () => {
         clearInterval(intervalId);
       }
     };
-  }, [loading, loadingMessages]);
+  }, [loading, LOADING_MESSAGES]);
 
   useEffect(() => {
     if (searchParams.get("reset") !== "1") return;
@@ -201,7 +167,7 @@ const GenerateStoryPageContent = () => {
                 <CustomSelect
                   id="language"
                   value={StoryFormData.language}
-                  options={languageOptions}
+                  options={LANGUAGE_OPTIONS}
                   placeholder="Select language"
                   onChange={(value) =>
                     setStoryFormData((prev) => ({ ...prev, language: value }))

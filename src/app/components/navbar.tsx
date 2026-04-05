@@ -12,7 +12,7 @@ const Navbar = () => {
   const navItems = [
     { name: "Home", link: "/" },
     { name: "Custom Story", link: "/custom-story?reset=1" },
-    { name: "About Us", link: "/about-us" },
+    { name: "KahaaniBot Tales", link: "/kahaani-bot-tales" },
   ];
 
   const [menuOpen, setMenuOpen] = useState(false);

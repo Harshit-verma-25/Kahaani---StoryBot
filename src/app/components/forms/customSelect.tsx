@@ -11,7 +11,7 @@ type SelectOption<T extends string> = {
 type CustomSelectProps<T extends string> = {
   id?: string;
   name?: string;
-  value: T | "";
+  value: T | "" | null;
   options: SelectOption<T>[];
   onChange: (value: T) => void;
   placeholder?: string;

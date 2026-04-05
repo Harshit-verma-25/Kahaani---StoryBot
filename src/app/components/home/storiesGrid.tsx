@@ -6,6 +6,7 @@ const StoriesGridSection = () => {
     {
       title: "The Birth of Ganesha",
       thumbnail: "/story-poster/birth-of-ganesha.png",
+      type: "video",
       slug: "the-birth-of-ganesha",
     },
     {
@@ -69,6 +70,12 @@ const StoriesGridSection = () => {
             )}
           </div>
         ))}
+      </div>
+
+      <div className="flex items-center justify-end">
+        <button className="mt-4 w-fit px-6 py-3 border-2 font-medium border-primary text-primary rounded-full transition cursor-pointer hover:scale-105">
+          View All
+        </button>
       </div>
     </section>
   );

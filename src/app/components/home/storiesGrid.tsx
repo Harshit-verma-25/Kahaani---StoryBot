@@ -73,9 +73,11 @@ const StoriesGridSection = () => {
       </div>
 
       <div className="flex items-center justify-end">
-        <button className="mt-4 w-fit px-6 py-3 border-2 font-medium border-primary text-primary rounded-full transition cursor-pointer hover:scale-105">
-          View All
-        </button>
+        <Link href="/kahaani-bot-tales">
+          <button className="mt-4 w-fit px-6 py-3 border-2 font-medium border-primary text-primary rounded-full transition cursor-pointer hover:scale-105">
+            View All
+          </button>
+        </Link>
       </div>
     </section>
   );

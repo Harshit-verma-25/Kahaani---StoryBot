@@ -10,7 +10,11 @@ import StoryReader from "@/app/components/storyReader";
 import { RiLoader2Fill } from "react-icons/ri";
 import CustomSelect from "@/app/components/forms/customSelect";
 import axios from "axios";
-import { EMPTY_OUTPUT, LOADING_MESSAGES, LANGUAGE_OPTIONS } from "@/app/lib/types/constant";
+import {
+  EMPTY_OUTPUT,
+  LOADING_MESSAGES,
+  LANGUAGE_OPTIONS,
+} from "@/app/lib/types/constant";
 
 const GenerateStoryPageContent = () => {
   const router = useRouter();
@@ -20,6 +24,7 @@ const GenerateStoryPageContent = () => {
   const [StoryFormData, setStoryFormData] = useState<StoryFormData>({
     prompt: "",
     moral: "",
+    format: "text_story_with_visuals",
     language: "hindi",
   });
   const [loading, setLoading] = useState(false);
@@ -27,8 +32,6 @@ const GenerateStoryPageContent = () => {
   const [activeTab, setActiveTab] = useState<
     "Full Story" | "Summary" | "Moral"
   >("Full Story");
-
-  
 
   useEffect(() => {
     let intervalId: ReturnType<typeof setInterval> | null = null;
@@ -129,7 +132,7 @@ const GenerateStoryPageContent = () => {
             </div>
 
             <form
-              className="w-full max-w-2xl mx-auto mt-4 flex flex-col gap-6"
+              className="w-full max-w-2xl mx-auto flex mt-2 flex-col gap-4"
               onSubmit={handleSubmit}
             >
               <div className="flex flex-col gap-2">
@@ -146,6 +149,7 @@ const GenerateStoryPageContent = () => {
                   onChange={handleChange}
                 />
               </div>
+
               <div className="flex flex-col gap-2">
                 <label htmlFor="moral" className="text-md font-medium">
                   Enter Moral
@@ -157,6 +161,27 @@ const GenerateStoryPageContent = () => {
                   className="outline-none p-2 border border-primary rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-primary"
                   value={StoryFormData.moral}
                   onChange={handleChange}
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label htmlFor="format" className="text-md font-medium">
+                  Story Format
+                </label>
+                <CustomSelect
+                  id="format"
+                  value={StoryFormData.format}
+                  options={[
+                    {
+                      value: "text_story_with_visuals",
+                      label: "Text Story with Visuals",
+                    },
+                    { value: "video_story", label: "Video Story" },
+                  ]}
+                  placeholder="Select story format"
+                  onChange={(value) =>
+                    setStoryFormData((prev) => ({ ...prev, format: value }))
+                  }
                 />
               </div>
 

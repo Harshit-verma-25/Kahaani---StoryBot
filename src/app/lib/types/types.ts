@@ -10,6 +10,31 @@ export type languageOption =
   | "gujarati"
   | "punjabi";
 
+export type languageCode =
+  | "hi"
+  | "en"
+  | "mr"
+  | "bn"
+  | "ta"
+  | "te"
+  | "kn"
+  | "ml"
+  | "gu"
+  | "pa";
+
+export type LanguageCodeMapType = {
+  hindi: "hi";
+  english: "en";
+  marathi: "mr";
+  bangla: "bn";
+  tamil: "ta";
+  telugu: "te";
+  kannada: "kn";
+  malayalam: "ml";
+  gujarati: "gu";
+  punjabi: "pa";
+};
+
 export type StoryFormat = "video_story" | "text_story_with_visuals";
 
 export type FilterType = "all" | "video" | "textual" | languageOption;
@@ -28,4 +53,13 @@ export interface GeneratedStory {
 
 export interface inBuiltStory {
   [key: string]: Partial<Record<StoryFormData["language"], GeneratedStory>>;
+}
+
+export interface VideoStoryFormat {
+  title: string;
+  videoUrl: string;
+  summary: string;
+  moral: string;
+  thumbnailUrl: string;
+  contentType: "mp4" | "webm" | "ogg";
 }

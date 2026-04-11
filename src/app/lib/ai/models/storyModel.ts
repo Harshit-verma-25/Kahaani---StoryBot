@@ -1,7 +1,11 @@
+import { GeneratedStory } from "../../types/types";
 import genAI from "../genAI";
 
-export async function generateStory(prompt: string, language: string) {
-  return genAI.models.generateContent({
+export default async function generateStory(
+  prompt: string,
+  language: string,
+): Promise<GeneratedStory> {
+  const model = await genAI.models.generateContent({
     model: process.env.STORY_GENERATION_MODEL || "gemini-2.5-flash",
     contents: prompt,
     config: {
@@ -19,6 +23,26 @@ export async function generateStory(prompt: string, language: string) {
       },
     },
   });
+
+  const responseText = model.text;
+
+  if (!responseText) {
+    throw new Error("Failed to generate story. AI returned an empty response.");
+  }
+
+  const data = JSON.parse(responseText);
+
+  if (!data.title || !data.story || !data.summary || !data.moral) {
+    console.error("Incomplete data from AI:", data);
+    throw new Error("AI returned incomplete data.");
+  }
+
+  return {
+    title: data.title,
+    story: data.story,
+    summary: data.summary,
+    moral: data.moral,
+  };
 }
 
 function getSystemInstructions(language: string) {

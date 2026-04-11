@@ -51,6 +51,18 @@ export interface GeneratedStory {
   moral: string;
 }
 
+export interface GeneratedTTS {
+  audioBuffer: Buffer<ArrayBuffer>;
+  mimeType: string;
+}
+
+export interface GeneratedImage {
+  image: {
+    imageBytes: string; // base64 string
+    mimeType: string;
+  };
+}
+
 export interface inBuiltStory {
   [key: string]: Partial<Record<StoryFormData["language"], GeneratedStory>>;
 }
@@ -62,4 +74,16 @@ export interface VideoStoryFormat {
   moral: string;
   thumbnailUrl: string;
   contentType: "mp4" | "webm" | "ogg";
+  size: number; // in bytes
+}
+
+export interface TextStoryFormat {
+  title: string;
+  story: string;
+  summary: string;
+  moral: string;
+  images: string[]; // Array of image URLs
+  audioUrl: string;
+  contentType: "mp3" | "wav" | "ogg";
+  size: number; // in bytes
 }

@@ -1,4 +1,4 @@
-import { GeneratedStory, languageOption, StoryFormData } from "./types";
+import { GeneratedStory, languageOption } from "./types";
 
 export const EMPTY_OUTPUT: GeneratedStory = {
   story: "",

@@ -6,13 +6,16 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint .",
+    "worker:stories": "tsx --env-file=.env ./src/workers/storyPersistenceWorker.ts"
   },
   "dependencies": {
     "@google/genai": "^1.29.0",
     "@supabase/ssr": "^0.9.0",
     "@supabase/supabase-js": "^2.98.0",
     "axios": "^1.13.2",
+    "bullmq": "^5.73.4",
+    "ioredis": "^5.10.1",
     "next": "15.5.9",
     "nodemailer": "^7.0.10",
     "postcss": "^8.5.6",
@@ -32,6 +35,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.5.3",
     "tailwindcss": "^4",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }

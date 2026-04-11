@@ -65,29 +65,6 @@ const AboutUsPage = () => {
     },
   ];
 
-  const futureScope = [
-    {
-      title: ["Expand the", "Story Library"],
-      description:
-        "We add more Indian folktales, epics, and regional legends so every child discovers new adventures.",
-    },
-    {
-      title: ["Add More", "Languages"],
-      description:
-        "We bring stories in multiple languages to reach children across India and beyond.",
-    },
-    {
-      title: ["Personalize", "with AI"],
-      description:
-        "We enhance stories with AI-powered narration and animations.",
-    },
-    {
-      title: ["Light &", "Dark Themes"],
-      description:
-        "We provide customizable themes for a more personalized reading experience.",
-    },
-  ];
-
   return (
     <section className="min-h-[calc(100vh-4.5rem)] flex flex-col items-center gap-12 md:gap-20 bg-background lg:px-16 sm:px-10 px-4">
       <div className="pt-10">

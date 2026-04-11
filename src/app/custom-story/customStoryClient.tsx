@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 import StoryReader from "@/app/components/storyReader";
 import { RiLoader2Fill } from "react-icons/ri";
 import CustomSelect from "@/app/components/forms/customSelect";
-import axios from "axios";
 import {
   EMPTY_OUTPUT,
   LOADING_MESSAGES,
@@ -85,19 +84,23 @@ const GenerateStoryPageContent = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post("/api/generate-story", StoryFormData);
+      // const response = await generateStoryByFormat({
+      //   prompt: StoryFormData.prompt,
+      //   language: StoryFormData.language,
+      //   format: StoryFormData.format,
+      // });
 
-      if (response) {
-        setOutput({
-          story: response.data.story,
-          summary: response.data.summary,
-          title: response.data.title,
-          moral: response.data.moral,
-        });
-        toast.success("Story generated successfully!");
-      } else {
-        toast.error("Failed to generate story. Please try again.");
-      }
+      // if (response) {
+      //   setOutput({
+      //     story: response.data.story,
+      //     summary: response.data.summary,
+      //     title: response.data.title,
+      //     moral: response.data.moral,
+      //   });
+      //   toast.success("Story generated successfully!");
+      // } else {
+      //   toast.error("Failed to generate story. Please try again.");
+      // }
     } catch (error) {
       console.error("Error generating story:", error);
       toast.error(

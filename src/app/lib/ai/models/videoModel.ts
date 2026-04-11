@@ -1,6 +1,6 @@
 import genAI from "../genAI";
 
-export async function generateStoryVideo(prompt: string) {
+export default async function generateStoryVideo(prompt: string) {
   const enhancedPrompt = `
     Create a short animated cinematic video for a children's story.
     Scene: ${prompt}
@@ -23,7 +23,7 @@ export async function generateStoryVideo(prompt: string) {
 
   return {
     videoUrl: response.response?.generatedVideos?.[0]?.video?.uri,
-    mineType: response.response?.generatedVideos?.[0]?.video?.mimeType,
+    mimeType: response.response?.generatedVideos?.[0]?.video?.mimeType,
     size: response.response?.generatedVideos?.[0]?.video?.videoBytes?.length,
   };
 }

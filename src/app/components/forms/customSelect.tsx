@@ -15,6 +15,8 @@ type CustomSelectProps<T extends string> = {
   options: SelectOption<T>[];
   onChange: (value: T) => void;
   placeholder?: string;
+  className?: string; // injected into the wrapper div
+  buttonClassName?: string; // injected into the button
 };
 
 const CustomSelect = <T extends string>({
@@ -24,6 +26,8 @@ const CustomSelect = <T extends string>({
   options,
   onChange,
   placeholder = "Select an option",
+  className = "",
+  buttonClassName = "",
 }: CustomSelectProps<T>) => {
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef<HTMLDivElement>(null);
@@ -48,12 +52,15 @@ const CustomSelect = <T extends string>({
   const selectedLabel = options.find((option) => option.value === value)?.label;
 
   return (
-    <div className="relative" ref={selectRef}>
+    <div className={`relative ${className}`.trim()} ref={selectRef}>
       <button
         type="button"
         id={id}
         name={name}
-        className="outline-none text-black p-2 border border-primary rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-primary transition text-left flex items-center justify-between"
+        className={`outline-none text-black w-full text-left flex items-center justify-between ${
+          buttonClassName ||
+          "p-2 border border-primary rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition"
+        }`}
         onClick={() => setIsOpen((prevState) => !prevState)}
         aria-haspopup="listbox"
         aria-expanded={isOpen}

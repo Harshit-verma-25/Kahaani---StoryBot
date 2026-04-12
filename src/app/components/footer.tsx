@@ -67,7 +67,8 @@ const Footer = () => {
           <div className="flex flex-wrap justify-center md:justify-start items-center gap-4 md:gap-6">
             {[
               { name: "Home", href: "/" },
-              { name: "About Us", href: "/about-us" },
+              { name: "Join Our Team", href: "/contact-us" },
+              { name: "Contact", href: "/contact-us" },
             ].map((item) => (
               <a
                 key={item.name}
@@ -77,12 +78,6 @@ const Footer = () => {
                 {item.name}
               </a>
             ))}
-            <button
-              className="hover:text-secondary cursor-pointer"
-              onClick={() => setIsJoinTeamModalOpen(true)}
-            >
-              Join Our Team
-            </button>
           </div>
 
           <div className="flex items-center gap-4 md:gap-3 justify-center md:justify-start">

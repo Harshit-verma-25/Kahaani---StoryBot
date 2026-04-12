@@ -88,35 +88,18 @@ export interface TextStoryFormat {
   size: number; // in bytes
 }
 
-/** Row shape for the `generated_stories` Supabase table. */
-export interface GeneratedStoryRow {
-  id: string;
-  prompt: string;
-  prompt_embedding?: number[];
-  language: languageOption;
-  format: StoryFormat;
-  title: string;
-  summary: string;
-  moral: string;
-  // text_story_with_visuals fields
-  story?: string;
-  images?: string[];
-  audio_url?: string;
-  audio_content_type?: string;
-  audio_size?: number;
-  // video_story fields
-  video_url?: string;
-  thumbnail_url?: string;
-  video_content_type?: string;
-  video_size?: number;
-  created_at: string;
+export interface ContactFormData {
+  name: string;
+  email: string;
+  phone: string;
+  enquiry: string;
+  message: string;
 }
 
-/** Data carried in each SSE event from /api/generate-story. */
-export type SSEEvent =
-  | { type: "story"; data: GeneratedStory }
-  | { type: "images"; data: string[] }
-  | { type: "audio"; data: { url: string; contentType: string; size: number } }
-  | { type: "video"; data: { url: string; mimeType: string; size?: number } }
-  | { type: "done"; data: { cached?: boolean } }
-  | { type: "error"; data: { message: string } };
+export interface JoinOurTeamFormData {
+  name: string;
+  email: string;
+  phone: string;
+  role: string;
+  resume: File | null;
+}

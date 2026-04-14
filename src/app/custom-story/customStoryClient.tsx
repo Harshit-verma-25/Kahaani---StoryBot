@@ -18,6 +18,7 @@ import VideoStoryOutput from "./VideoStoryOutput";
 import generateStory from "@/app/lib/ai/models/storyModel";
 import generateStoryImage from "@/app/lib/ai/models/imageModel";
 import generateSpeech from "@/app/lib/ai/models/ttsModel";
+import generateStoryVideo from "../lib/ai/models/videoModel";
 
 const GenerateStoryPageContent = () => {
   const router = useRouter();
@@ -74,6 +75,19 @@ const GenerateStoryPageContent = () => {
     router.replace("/custom-story", { scroll: false });
   }, [searchParams, router]);
 
+  useEffect(() => {
+    if (storyFormData.format === "video_story" && activeTab === "Full Story") {
+      setActiveTab("Full Video");
+    }
+
+    if (
+      storyFormData.format === "text_story_with_visuals" &&
+      activeTab === "Full Video"
+    ) {
+      setActiveTab("Full Story");
+    }
+  }, [storyFormData.format, activeTab]);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
   ) => {
@@ -98,6 +112,7 @@ const GenerateStoryPageContent = () => {
       setLoading(true);
 
       if (storyFormData.format === "text_story_with_visuals") {
+        setActiveTab("Full Story");
         setIsStoryLoading(true);
         setIsImageLoading(true);
         setIsTTSLoading(true);
@@ -176,6 +191,57 @@ const GenerateStoryPageContent = () => {
           .finally(() => setIsTTSLoading(false));
 
         await Promise.all([imagePromise, ttsPromise]);
+      } else if (storyFormData.format === "video_story") {
+        setActiveTab("Full Video");
+        setIsVideoLoading(true);
+        setIsStoryLoading(true);
+
+        const newOutput: VideoStoryFormat = {
+          language: "english",
+          title: "",
+          summary: "",
+          moral: "",
+          videoUrl: "",
+          contentType: "mp4",
+          size: 0,
+        };
+        setOutput(newOutput);
+
+        const promptParam = storyFormData.prompt;
+
+        const generatedStory = await generateStory(
+          promptParam,
+          storyFormData.language,
+        );
+
+        setOutput((prev) =>
+          prev
+            ? ({
+                ...prev,
+                title: generatedStory.title,
+                story: generatedStory.story,
+                summary: generatedStory.summary,
+                moral: generatedStory.moral,
+              } as TextStoryFormat)
+            : prev,
+        );
+        setIsStoryLoading(false);
+        setLoading(false);
+
+        const videoData = await generateStoryVideo(promptParam);
+
+        setOutput((prev) =>
+          prev
+            ? ({
+                ...prev,
+                videoUrl: videoData.videoUrl || "",
+                contentType: "mp4",
+                size: 0,
+              } as VideoStoryFormat)
+            : prev,
+        );
+        setIsVideoLoading(false);
+        console.log("Video data:", videoData);
       }
     } catch (error) {
       console.error("Error generating story:", error);
@@ -264,20 +330,22 @@ const GenerateStoryPageContent = () => {
                 />
               </div>
 
-              <div className="flex flex-col gap-2">
-                <label htmlFor="language" className="text-md font-medium">
-                  Choose Language <span className="text-red-500">*</span>
-                </label>
-                <CustomSelect
-                  id="language"
-                  value={storyFormData.language}
-                  options={LANGUAGE_OPTIONS}
-                  placeholder="Select language"
-                  onChange={(value) =>
-                    setStoryFormData((prev) => ({ ...prev, language: value }))
-                  }
-                />
-              </div>
+              {storyFormData.format === "text_story_with_visuals" && (
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="language" className="text-md font-medium">
+                    Choose Language <span className="text-red-500">*</span>
+                  </label>
+                  <CustomSelect
+                    id="language"
+                    value={storyFormData.language}
+                    options={LANGUAGE_OPTIONS}
+                    placeholder="Select language"
+                    onChange={(value) =>
+                      setStoryFormData((prev) => ({ ...prev, language: value }))
+                    }
+                  />
+                </div>
+              )}
 
               <button
                 type="submit"
@@ -306,7 +374,7 @@ const GenerateStoryPageContent = () => {
               {isStoryLoading ? (
                 <div className="mx-auto h-10 w-72 max-w-full animate-pulse rounded-full bg-primary/15 sm:h-12 sm:w-96" />
               ) : (
-                <h1 className="text-xl sm:text-2xl lg:text-4xl text-primary font-medium">
+                <h1 className="text-xl sm:text-2xl lg:text-4xl text-primary font-medium pt-8">
                   &quot;{output.title}&quot;
                 </h1>
               )}
@@ -326,6 +394,8 @@ const GenerateStoryPageContent = () => {
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
                 output={output as VideoStoryFormat}
+                isStoryLoading={isStoryLoading}
+                isVideoLoading={isVideoLoading}
               />
             ) : null}
           </>

@@ -1,44 +1,110 @@
 {
-    "the-birth-of-ganesha": {
-        "english": {
-            "title": "The Birth of Ganesha",
-            "story": "Long, long ago, the mighty Goddess Parvati was preparing for a bath on Mount Kailash. She wanted someone to guard her door so that no one could disturb her peace. Since Lord Shiva, her husband, was away, Parvati decided to create a son all by herself!She took the dust and essence from her own body, mixed it with her divine power, and molded it into the shape of a beautiful, strong boy. She breathed life into him, and he immediately stood up.Parvati smiled and told the boy, “Go, my son, and guard this door. Do not let anyone—absolutely anyone—enter.” The loyal boy bowed and took his position, holding a mighty staff.Soon, Lord Shiva returned home. He started to walk toward the house, but the boy stopped him immediately! “Wait! My mother, Goddess Parvati, is inside, and I cannot allow you to enter,” the boy declared bravely. Lord Shiva was surprised by this courageous, strange boy who dared to stop him. The boy was simply following his mother's command, showing true devotion and duty.",
-            "summary": "Goddess Parvati wished for a guard while she bathed, so she created a strong and loyal boy, giving him life from her own essence. She instructed him to let no one pass. Soon after, Lord Shiva returned home and was bravely stopped by the boy, who was dedicated to his mother's command.",
-            "moral": "It is important to be loyal and dedicated to the duties and responsibilities you are given."
-        },
-        "hindi": {
-            "title": "गणेश का जन्म",
-            "story": "बहुत, बहुत पहले की बात है, शक्तिशाली देवी पार्वती कैलाश पर्वत पर स्नान की तैयारी कर रही थीं। वह चाहती थीं कि कोई उनके दरवाज़े की रखवाली करे ताकि कोई उनकी शांति भंग न कर सके। क्योकी उनके पति, भगवान शिव, दूर थे, पार्वती ने स्वयं ही एक पुत्र बनाने का फैसला किया!उन्होंने अपने शरीर की धूल और सार लिया, उसे अपनी दिव्य शक्ति के साथ मिलाया, और उसे एक सुंदर, मजबूत लड़के के आकार में ढाला। उन्होंने उसमें प्राण फूँके, और वह तुरंत खड़ा हो गया।पार्वती मुस्कुराईं और लड़के से बोलीं, “जाओ, मेरे बेटे, और इस दरवाज़े की रखवाली करो। किसी को भी—बिल्कुल किसी को भी—अंदर मत आने देना।” वफ़ादार लड़के ने प्रणाम किया और एक शक्तिशाली छड़ी लेकर अपना स्थान ले लिया।जल्द ही, भगवान शिव घर लौटे। उन्होंने घर की ओर चलना शुरू किया, लेकिन लड़के ने उन्हें तुरंत रोक दिया! लड़के ने बहादुरी से घोषणा की, “ठहरो! मेरी माता, देवी पार्वती, अंदर हैं, और मैं आपको अंदर जाने की अनुमति नहीं दे सकता।” भगवान शिव इस साहसी, अजीब लड़के से आश्चर्यचकित थे जिसने उन्हें रोकने की हिम्मत की। लड़का बस अपनी माँ की आज्ञा का पालन कर रहा था, सच्ची भक्ति और कर्तव्य दिखा रहा था।",
-            "summary": "देवी पार्वती स्नान करते समय एक रक्षक चाहती थीं, इसलिए उन्होंने अपनी शक्ति से एक मजबूत और वफ़ादार लड़का बनाया। उन्होंने उसे निर्देश दिया कि वह किसी को भी अंदर न आने दे। कुछ ही देर बाद, भगवान शिव घर लौटे और उस लड़के ने उन्हें बहादुरी से रोक दिया, जो अपनी माँ की आज्ञा के प्रति समर्पित था।",
-            "moral": "आपको दिए गए कर्तव्यों और जिम्मेदारियों के प्रति वफादार और समर्पित रहना महत्वपूर्ण है।"
-        }
+  "the-birth-of-ganesha": {
+    "english": {
+      "title": "The Birth of Ganesha",
+      "story": "Long, long ago, the mighty Goddess Parvati was preparing for a bath on Mount Kailash. She wanted someone to guard her door so that no one could disturb her peace. Since Lord Shiva, her husband, was away, Parvati decided to create a son all by herself!She took the dust and essence from her own body, mixed it with her divine power, and molded it into the shape of a beautiful, strong boy. She breathed life into him, and he immediately stood up.Parvati smiled and told the boy, “Go, my son, and guard this door. Do not let anyone—absolutely anyone—enter.” The loyal boy bowed and took his position, holding a mighty staff.Soon, Lord Shiva returned home. He started to walk toward the house, but the boy stopped him immediately! “Wait! My mother, Goddess Parvati, is inside, and I cannot allow you to enter,” the boy declared bravely. Lord Shiva was surprised by this courageous, strange boy who dared to stop him. The boy was simply following his mother's command, showing true devotion and duty.",
+      "summary": "Goddess Parvati wished for a guard while she bathed, so she created a strong and loyal boy, giving him life from her own essence. She instructed him to let no one pass. Soon after, Lord Shiva returned home and was bravely stopped by the boy, who was dedicated to his mother's command.",
+      "moral": "It is important to be loyal and dedicated to the duties and responsibilities you are given.",
+      "language": "english",
+      "type": "text_with_visuals"
     },
-    "holi-ka-dahan": {
-        "english": {
-            "title": "Holika Dahan: The Triumph of Devotion",
-            "story": "In ancient times, there lived a powerful demon king, Hiranyakashipu, who demanded that everyone worship him as a god. His own son, Prahlada, however, was a staunch devotee of Lord Vishnu and refused to bow to his father's tyranny. This infuriated Hiranyakashipu, who subjected Prahlada to numerous cruel punishments, all of which the boy miraculously survived due to his unwavering faith. Desperate to kill his son, Hiranyakashipu turned to his sister, Holika, who possessed a magical boon that made her immune to fire. Holika devised a plan: she would sit in a blazing pyre, holding Prahlada on her lap, believing the fire would consume the boy while she remained unharmed. However, the boon was only effective if she entered the fire alone. As the flames erupted, Prahlada continued chanting Vishnu’s name. By divine grace, Holika's shawl, which shielded her from the fire, flew off and covered Prahlada instead. Holika was burned to ashes, while Prahlada emerged unscathed. Holika Dahan, celebrated the night before the festival of Holi, marks this symbolic victory of good over evil, and the ultimate protection granted by true devotion.",
-            "summary": "The demon king Hiranyakashipu tried to kill his devout son, Prahlada, by having his fire-immune sister, Holika, sit with him in a pyre. Due to Prahlada's devotion to Lord Vishnu, Holika's immunity failed, and she was burnt to death, while Prahlada was saved. Holika Dahan commemorates the burning of Holika, signifying the triumph of devotion and virtue over evil intentions.",
-            "moral": "True faith in the divine is the greatest protection, and good always prevails over evil, no matter how powerful the adversary."
-        },
-        "hindi": {
-            "title": "होली का दहन: भक्ति की जीत",
-            "story": "प्राचीन काल में, एक शक्तिशाली राक्षस राजा हिरण्यकशिपु रहता था, जो चाहता था कि सभी लोग उसे भगवान के रूप में पूजें। हालांकि, उसका अपना पुत्र प्रह्लाद भगवान विष्णु का कट्टर भक्त था और अपने पिता के अत्याचार के सामने झुकने से इनकार कर दिया। इससे हिरण्यकशिपु क्रोधित हो गया, जिसने प्रह्लाद को कई क्रूर दंड दिए, जिनमें से सभी को लड़का अपनी अटूट आस्था के कारण चमत्कारिक रूप से बच गया। अपने पुत्र को मारने के लिए बेताब, हिरण्यकशिपु ने अपनी बहन होलिका की ओर रुख किया, जिसके पास एक जादुई वरदान था जो उसे आग से अछूता बनाता था। होलिका ने एक योजना बनाई: वह एक जलती हुई चिता में प्रह्लाद को गोद में लेकर बैठ जाएगी, यह मानते हुए कि आग लड़के को जला देगी जबकि वह स्वयं सुरक्षित रहेगी। हालांकि, यह वरदान केवल तभी प्रभावी था जब वह अकेले आग में प्रवेश करती। जैसे ही आग भड़क उठी, प्रह्लाद विष्णु का नाम जपता रहा। दिव्य कृपा से, होलिका की शॉल, जो उसे आग से बचा रही थी, उड़ गई और प्रह्लाद को ढक लिया। होलिका राख हो गई, जबकि प्रह्लाद बिना किसी चोट के बाहर आया। होली का दहन, जो होली के त्योहार से एक रात पहले मनाया जाता है, इस प्रतीकात्मक जीत का प्रतीक है कि भक्ति और सद्गुण की शक्ति बुराई पर हमेशा विजय प्राप्त करती है।",
-            "summary": "राक्षस राजा हिरण्यकशिपु ने अपने भक्त पुत्र प्रह्लाद को मारने के लिए अपनी आग से अछूती बहन होलिका को उसके साथ चिता में बैठाया। भगवान विष्णु के प्रति प्रह्लाद की भक्ति के कारण, होलिका की सुरक्षा विफल हो गई, और वह जलकर मर गई, जबकि प्रह्लाद बच गया। होली का दहन होलिका के दहन को याद करता है, जो भक्ति और सद्गुण की बुराई पर विजय का प्रतीक है।",
-            "moral": "दिव्य में सच्चा विश्वास सबसे बड़ी सुरक्षा है, और चाहे विरोधी कितना भी शक्तिशाली हो, भलाई हमेशा बुराई पर विजय प्राप्त करती है।"
-        }
-    },
-    "krishna-butter-story": {
-        "english": {
-            "title": "Krishna and the Pot of Butter",
-            "story": "As a mischievous and playful child in Gokul, young Krishna had an insatiable love for butter. He would often sneak into the houses of the gopis with his friends, known as the maakhan chor. The gopis, initially annoyed by the constant theft, tried various methods to keep their precious butter safe, often hanging the pots high up on ropes attached to the ceiling. However, Krishna was always one step ahead. Using his ingenuity, he would gather his friends to form human pyramids, or use wooden stools and even his little flute to knock down the clay pots, sharing the stolen treat with his friends and the monkeys. Despite their complaints to his mother, Yashodha, the gopis couldn't stay angry for long, captivated by the charm and innocence of the blue-skinned child. Yashodha, while often attempting to discipline him, would eventually melt at his innocent pleas. This playful story highlights Krishna's loving naughtiness and the bond he shared with the people of Vrindavan, signifying the sweet relationship between a devotee and the divine.",
-            "summary": "Young Krishna was notorious in Gokul as the maakhan chor. He would cleverly use human pyramids and tools to steal butter pots hung high by the gopis. Despite the complaints, the gopis and his mother, Yashodha, were ultimately charmed by his innocent mischief, illustrating the loving and playful nature of the divine.",
-            "moral": "The love between the devotee and the divine is often sweet and playful, and devotion can transform even mischievous acts into acts of love."
-        },
-        "hindi": {
-            "title": "कृष्ण और मक्खन का बर्तन",
-            "story": "गोकुल में एक शरारती और खेल-कूद करने वाले बच्चे के रूप में, छोटे कृष्ण को मक्खन के लिए एक अतृप्त प्रेम था। वह अक्सर अपने दोस्तों के साथ गोपियों के घरों में चोरी-छिपे घुस जाता था, जिन्हें मक्खन चोर के नाम से जाना जाता था। गोपिया, जो शुरू में लगातार चोरी से परेशान थीं, अपने कीमती मक्खन को सुरक्षित रखने के लिए विभिन्न तरीकों का प्रयास करती थीं, अक्सर बर्तनों को छत से जुड़े रस्सियों पर ऊंचा लटकाती थीं। हालांकि, कृष्ण हमेशा एक कदम आगे था। अपनी बुद्धिमत्ता का उपयोग करते हुए, वह अपने दोस्तों को मानव पिरामिड बनाने के लिए इकट्ठा करता था, या मिट्टी के बर्तनों को गिराने के लिए लकड़ी के स्टूल और यहां तक कि अपनी छोटी बांसुरी का उपयोग करता था, चोरी किए गए व्यंजन को अपने दोस्तों और बंदरों के साथ साझा करता था। उनकी शिकायतों के बावजूद उनकी माँ यशोदा से, गोपीया लंबे समय तक गुस्सा नहीं रह सकीं, नीले रंग के बच्चे की आकर्षण और मासूमियत से मोहित हो गईं। यशोदा, जो अक्सर उसे अनुशासित करने की कोशिश करती थीं, अंततः उसकी मासूम विनती पर पिघल जाती थीं। यह खेल-कूद की कहानी कृष्ण की प्रेमपूर्ण शरारत और वृंदावन के लोगों के साथ उसके साझा बंधन को उजागर करती है, जो भक्त और दिव्य के बीच मीठे संबंध का प्रतीक है।",
-            "summary": "छोटे कृष्ण गोकुल में मक्खन चोर के रूप में कुख्यात थे। वह चालाकी से मानव पिरामिड और उपकरणों का उपयोग करके मक्खन के बर्तनों को चुराते थे जो गोपियों द्वारा ऊंचा लटकाए गए थे। शिकायतों के बावजूद, गोपीया और उनकी माँ यशोदा अंततः उसकी मासूम शरारत से मोहित हो गए, जो दिव्य की प्रेमपूर्ण और खेल-कूद करने वाली प्रकृति को दर्शाता है।",
-            "moral": "भक्त और दिव्य के बीच का प्रेम अक्सर मीठा और खेल-कूद भरा होता है, और भक्ति शरारती कार्यों को भी प्रेम के कार्यों में बदल सकती है।"
-        }
+    "hindi": {
+      "title": "गणेश का जन्म",
+      "story": "बहुत, बहुत पहले की बात है, शक्तिशाली देवी पार्वती कैलाश पर्वत पर स्नान की तैयारी कर रही थीं। वह चाहती थीं कि कोई उनके दरवाज़े की रखवाली करे ताकि कोई उनकी शांति भंग न कर सके। क्योकी उनके पति, भगवान शिव, दूर थे, पार्वती ने स्वयं ही एक पुत्र बनाने का फैसला किया!उन्होंने अपने शरीर की धूल और सार लिया, उसे अपनी दिव्य शक्ति के साथ मिलाया, और उसे एक सुंदर, मजबूत लड़के के आकार में ढाला। उन्होंने उसमें प्राण फूँके, और वह तुरंत खड़ा हो गया।पार्वती मुस्कुराईं और लड़के से बोलीं, “जाओ, मेरे बेटे, और इस दरवाज़े की रखवाली करो। किसी को भी—बिल्कुल किसी को भी—अंदर मत आने देना।” वफ़ादार लड़के ने प्रणाम किया और एक शक्तिशाली छड़ी लेकर अपना स्थान ले लिया।जल्द ही, भगवान शिव घर लौटे। उन्होंने घर की ओर चलना शुरू किया, लेकिन लड़के ने उन्हें तुरंत रोक दिया! लड़के ने बहादुरी से घोषणा की, “ठहरो! मेरी माता, देवी पार्वती, अंदर हैं, और मैं आपको अंदर जाने की अनुमति नहीं दे सकता।” भगवान शिव इस साहसी, अजीब लड़के से आश्चर्यचकित थे जिसने उन्हें रोकने की हिम्मत की। लड़का बस अपनी माँ की आज्ञा का पालन कर रहा था, सच्ची भक्ति और कर्तव्य दिखा रहा था।",
+      "summary": "देवी पार्वती स्नान करते समय एक रक्षक चाहती थीं, इसलिए उन्होंने अपनी शक्ति से एक मजबूत और वफ़ादार लड़का बनाया। उन्होंने उसे निर्देश दिया कि वह किसी को भी अंदर न आने दे। कुछ ही देर बाद, भगवान शिव घर लौटे और उस लड़के ने उन्हें बहादुरी से रोक दिया, जो अपनी माँ की आज्ञा के प्रति समर्पित था।",
+      "moral": "आपको दिए गए कर्तव्यों और जिम्मेदारियों के प्रति वफादार और समर्पित रहना महत्वपूर्ण है।",
+      "language": "hindi",
+      "type": "text_with_visuals"
     }
+  },
+  "holi-ka-dahan": {
+    "english": {
+      "title": "Holika Dahan: The Triumph of Devotion",
+      "story": "In ancient times, there lived a powerful demon king, Hiranyakashipu, who demanded that everyone worship him as a god. His own son, Prahlada, however, was a staunch devotee of Lord Vishnu and refused to bow to his father's tyranny. This infuriated Hiranyakashipu, who subjected Prahlada to numerous cruel punishments, all of which the boy miraculously survived due to his unwavering faith. Desperate to kill his son, Hiranyakashipu turned to his sister, Holika, who possessed a magical boon that made her immune to fire. Holika devised a plan: she would sit in a blazing pyre, holding Prahlada on her lap, believing the fire would consume the boy while she remained unharmed. However, the boon was only effective if she entered the fire alone. As the flames erupted, Prahlada continued chanting Vishnu’s name. By divine grace, Holika's shawl, which shielded her from the fire, flew off and covered Prahlada instead. Holika was burned to ashes, while Prahlada emerged unscathed. Holika Dahan, celebrated the night before the festival of Holi, marks this symbolic victory of good over evil, and the ultimate protection granted by true devotion.",
+      "summary": "The demon king Hiranyakashipu tried to kill his devout son, Prahlada, by having his fire-immune sister, Holika, sit with him in a pyre. Due to Prahlada's devotion to Lord Vishnu, Holika's immunity failed, and she was burnt to death, while Prahlada was saved. Holika Dahan commemorates the burning of Holika, signifying the triumph of devotion and virtue over evil intentions.",
+      "moral": "True faith in the divine is the greatest protection, and good always prevails over evil, no matter how powerful the adversary.",
+      "language": "english",
+      "type": "text_with_visuals"
+    },
+    "hindi": {
+      "title": "होली का दहन: भक्ति की जीत",
+      "story": "प्राचीन काल में, एक शक्तिशाली राक्षस राजा हिरण्यकशिपु रहता था, जो चाहता था कि सभी लोग उसे भगवान के रूप में पूजें। हालांकि, उसका अपना पुत्र प्रह्लाद भगवान विष्णु का कट्टर भक्त था और अपने पिता के अत्याचार के सामने झुकने से इनकार कर दिया। इससे हिरण्यकशिपु क्रोधित हो गया, जिसने प्रह्लाद को कई क्रूर दंड दिए, जिनमें से सभी को लड़का अपनी अटूट आस्था के कारण चमत्कारिक रूप से बच गया। अपने पुत्र को मारने के लिए बेताब, हिरण्यकशिपु ने अपनी बहन होलिका की ओर रुख किया, जिसके पास एक जादुई वरदान था जो उसे आग से अछूता बनाता था। होलिका ने एक योजना बनाई: वह एक जलती हुई चिता में प्रह्लाद को गोद में लेकर बैठ जाएगी, यह मानते हुए कि आग लड़के को जला देगी जबकि वह स्वयं सुरक्षित रहेगी। हालांकि, यह वरदान केवल तभी प्रभावी था जब वह अकेले आग में प्रवेश करती। जैसे ही आग भड़क उठी, प्रह्लाद विष्णु का नाम जपता रहा। दिव्य कृपा से, होलिका की शॉल, जो उसे आग से बचा रही थी, उड़ गई और प्रह्लाद को ढक लिया। होलिका राख हो गई, जबकि प्रह्लाद बिना किसी चोट के बाहर आया। होली का दहन, जो होली के त्योहार से एक रात पहले मनाया जाता है, इस प्रतीकात्मक जीत का प्रतीक है कि भक्ति और सद्गुण की शक्ति बुराई पर हमेशा विजय प्राप्त करती है।",
+      "summary": "राक्षस राजा हिरण्यकशिपु ने अपने भक्त पुत्र प्रह्लाद को मारने के लिए अपनी आग से अछूती बहन होलिका को उसके साथ चिता में बैठाया। भगवान विष्णु के प्रति प्रह्लाद की भक्ति के कारण, होलिका की सुरक्षा विफल हो गई, और वह जलकर मर गई, जबकि प्रह्लाद बच गया। होली का दहन होलिका के दहन को याद करता है, जो भक्ति और सद्गुण की बुराई पर विजय का प्रतीक है।",
+      "moral": "दिव्य में सच्चा विश्वास सबसे बड़ी सुरक्षा है, और चाहे विरोधी कितना भी शक्तिशाली हो, भलाई हमेशा बुराई पर विजय प्राप्त करती है।",
+      "language": "hindi",
+      "type": "text_with_visuals"
+    }
+  },
+  "krishna-butter-story": {
+    "english": {
+      "title": "Krishna and the Pot of Butter",
+      "story": "As a mischievous and playful child in Gokul, young Krishna had an insatiable love for butter. He would often sneak into the houses of the gopis with his friends, known as the maakhan chor. The gopis, initially annoyed by the constant theft, tried various methods to keep their precious butter safe, often hanging the pots high up on ropes attached to the ceiling. However, Krishna was always one step ahead. Using his ingenuity, he would gather his friends to form human pyramids, or use wooden stools and even his little flute to knock down the clay pots, sharing the stolen treat with his friends and the monkeys. Despite their complaints to his mother, Yashodha, the gopis couldn't stay angry for long, captivated by the charm and innocence of the blue-skinned child. Yashodha, while often attempting to discipline him, would eventually melt at his innocent pleas. This playful story highlights Krishna's loving naughtiness and the bond he shared with the people of Vrindavan, signifying the sweet relationship between a devotee and the divine.",
+      "summary": "Young Krishna was notorious in Gokul as the maakhan chor. He would cleverly use human pyramids and tools to steal butter pots hung high by the gopis. Despite the complaints, the gopis and his mother, Yashodha, were ultimately charmed by his innocent mischief, illustrating the loving and playful nature of the divine.",
+      "moral": "The love between the devotee and the divine is often sweet and playful, and devotion can transform even mischievous acts into acts of love.",
+      "language": "english",
+      "type": "text_with_visuals"
+    },
+    "hindi": {
+      "title": "कृष्ण और मक्खन का बर्तन",
+      "story": "गोकुल में एक शरारती और खेल-कूद करने वाले बच्चे के रूप में, छोटे कृष्ण को मक्खन के लिए एक अतृप्त प्रेम था। वह अक्सर अपने दोस्तों के साथ गोपियों के घरों में चोरी-छिपे घुस जाता था, जिन्हें मक्खन चोर के नाम से जाना जाता था। गोपिया, जो शुरू में लगातार चोरी से परेशान थीं, अपने कीमती मक्खन को सुरक्षित रखने के लिए विभिन्न तरीकों का प्रयास करती थीं, अक्सर बर्तनों को छत से जुड़े रस्सियों पर ऊंचा लटकाती थीं। हालांकि, कृष्ण हमेशा एक कदम आगे था। अपनी बुद्धिमत्ता का उपयोग करते हुए, वह अपने दोस्तों को मानव पिरामिड बनाने के लिए इकट्ठा करता था, या मिट्टी के बर्तनों को गिराने के लिए लकड़ी के स्टूल और यहां तक कि अपनी छोटी बांसुरी का उपयोग करता था, चोरी किए गए व्यंजन को अपने दोस्तों और बंदरों के साथ साझा करता था। उनकी शिकायतों के बावजूद उनकी माँ यशोदा से, गोपीया लंबे समय तक गुस्सा नहीं रह सकीं, नीले रंग के बच्चे की आकर्षण और मासूमियत से मोहित हो गईं। यशोदा, जो अक्सर उसे अनुशासित करने की कोशिश करती थीं, अंततः उसकी मासूम विनती पर पिघल जाती थीं। यह खेल-कूद की कहानी कृष्ण की प्रेमपूर्ण शरारत और वृंदावन के लोगों के साथ उसके साझा बंधन को उजागर करती है, जो भक्त और दिव्य के बीच मीठे संबंध का प्रतीक है।",
+      "summary": "छोटे कृष्ण गोकुल में मक्खन चोर के रूप में कुख्यात थे। वह चालाकी से मानव पिरामिड और उपकरणों का उपयोग करके मक्खन के बर्तनों को चुराते थे जो गोपियों द्वारा ऊंचा लटकाए गए थे। शिकायतों के बावजूद, गोपीया और उनकी माँ यशोदा अंततः उसकी मासूम शरारत से मोहित हो गए, जो दिव्य की प्रेमपूर्ण और खेल-कूद करने वाली प्रकृति को दर्शाता है।",
+      "moral": "भक्त और दिव्य के बीच का प्रेम अक्सर मीठा और खेल-कूद भरा होता है, और भक्ति शरारती कार्यों को भी प्रेम के कार्यों में बदल सकती है।",
+      "language": "hindi",
+      "type": "text_with_visuals"
+    }
+  },
+  "the-story-of-ramayana": {
+    "english": {
+      "title": "The Story of Ramayana",
+      "story": "The Ramayana is an ancient Indian epic that narrates the life and adventures of Lord Rama, a prince of Ayodhya. The story begins with the birth of Rama to King Dasharatha and Queen Kaushalya. Rama is known for his virtues, bravery, and unwavering commitment to dharma (righteousness). As he grows up, Rama wins the hand of Princess Sita in a swayamvara (a ceremony where a bride chooses her groom). However, due to palace intrigues, Rama is exiled to the forest for 14 years. During his exile, Sita is abducted by the demon king Ravana, leading Rama on a quest to rescue her. With the help of his loyal brother Lakshmana and the monkey god Hanuman, Rama wages a fierce battle against Ravana in Lanka. Ultimately, Rama defeats Ravana, rescues Sita, and returns to Ayodhya to reclaim his throne. The Ramayana is not just a tale of heroism but also a profound exploration of duty, love, and the triumph of good over evil.",
+      "summary": "The Ramayana is an epic that tells the story of Lord Rama, who is exiled to the forest and embarks on a quest to rescue his wife Sita from the demon king Ravana. With the help of his brother Lakshmana and the monkey god Hanuman, Rama defeats Ravana and returns to Ayodhya. The story explores themes of duty, love, and the victory of good over evil.",
+      "moral": "The Ramayana teaches us about the importance of duty, righteousness, and the power of love and devotion in overcoming challenges and defeating evil.",
+      "language": "english",
+      "type": "text_with_visuals"
+    },
+    "hindi": {
+      "title": "रामायण की कहानी",
+      "story": "रामायण एक प्राचीन भारतीय महाकाव्य है जो भगवान राम के जीवन और साहसिक कार्यों का वर्णन करता है, जो अयोध्या के एक राजकुमार थे। कहानी की शुरुआत राम के जन्म से होती है, जो राजा दशरथ और रानी कौशल्या के पुत्र थे। राम अपने गुणों, बहादुरी, और धर्म (धार्मिकता) के प्रति अटूट प्रतिबद्धता के लिए जाने जाते हैं। जैसे-जैसे वह बड़े होते हैं, राम एक स्वयंवर में राजकुमारी सीता का हाथ जीतते हैं। हालांकि, महल की साजिशों के कारण, राम को 14 वर्षों के लिए वनवास दिया जाता है। अपने वनवास के दौरान, सीता का अपहरण राक्षस राजा रावण द्वारा किया जाता है, जिससे राम उसे बचाने के लिए एक अभियान पर निकलते हैं। अपने वफादार भाई लक्ष्मण और बंदर देव हनुमान की मदद से, राम लंका में रावण के खिलाफ एक भयंकर युद्ध करते हैं। अंततः, राम रावण को हराते हैं, सीता को बचाते हैं, और अयोध्या लौटकर अपना सिंहासन पुनः प्राप्त करते हैं। रामायण न केवल वीरता की कहानी है बल्कि कर्तव्य, प्रेम, और बुराई पर अच्छाई की जीत की गहरी खोज भी है।",
+      "summary": "रामायण एक महाकाव्य है जो भगवान राम की कहानी बताता है, जो वनवास में जाते हैं और अपनी पत्नी सीता को राक्षस राजा रावण से बचाने के लिए एक अभियान पर निकलते हैं। अपने भाई लक्ष्मण और बंदर देव हनुमान की मदद से, राम रावण को हराते हैं और अयोध्या लौटते हैं। कहानी कर्तव्य, प्रेम, और बुराई पर अच्छाई की जीत के विषयों का अन्वेषण करती है।",
+      "moral": "रामायण हमें कर्तव्य, धार्मिकता, और चुनौतियों को पार करने और बुराई को हराने में प्रेम और भक्ति की शक्ति के महत्व के बारे में सिखाता है।",
+      "language": "hindi",
+      "type": "text_with_visuals"
+    }
+  },
+  "the-story-of-mahabharata": {
+    "english": {
+      "title": "The Story of Mahabharata",
+      "story": "The Mahabharata is one of the greatest epics of ancient India, narrating the story of the Kuru dynasty and the great war of Kurukshetra. The central characters are the Pandavas and the Kauravas, who are cousins vying for the throne of Hastinapura. The epic begins with the rivalry between the two families, which escalates into a full-blown conflict. The Pandavas, led by Yudhishthira, are known for their righteousness and valor, while the Kauravas, led by Duryodhana, are driven by greed and ambition. The war lasts for 18 days and involves complex strategies, heroic deeds, and divine interventions. Lord Krishna serves as Arjuna's charioteer and guide during the battle, imparting spiritual wisdom through the Bhagavad Gita. Ultimately, the Pandavas emerge victorious, but at a great cost. The Mahabharata explores themes of duty, righteousness, loyalty, and the consequences of one's actions.",
+      "summary": "The Mahabharata tells the story of the rivalry between the Pandavas and Kauravas over the throne of Hastinapura, culminating in the great war of Kurukshetra. With Lord Krishna's guidance, the Pandavas win but face significant losses. The epic delves into themes of duty, righteousness, loyalty, and consequences.",
+      "moral": "The Mahabharata teaches us about the importance of righteousness (dharma), loyalty to family and friends, and understanding that our actions have consequences that can affect not only ourselves but also those around us.",
+      "language": "english",
+      "type": "text_with_visuals"
+    },
+    "hindi": {
+      "title": "महाभारत की कहानी",
+      "story": "महाभारत प्राचीन भारत का एक महान महाकाव्य है जो कुरु वंश की कहानी और कुरुक्षेत्र के महान युद्ध का वर्णन करता है। मुख्य पात्र पांडव और कौरव हैं, जो हस्तिनापुर के सिंहासन के लिए प्रतिस्पर्धा कर रहे हैं। महाकाव्य की शुरुआत दोनों परिवारों के बीच प्रतिद्वंद्विता से होती है, जो एक पूर्ण-स्तरीय संघर्ष में बदल जाती है। युधिष्ठिर के नेतृत्व में पांडव अपनी धार्मिकता और वीरता के लिए जाने जाते हैं, जबकि दुर्योधन के नेतृत्व में कौरव लालच और महत्वाकांक्षा से प्रेरित होते हैं। युद्ध 18 दिनों तक चलता है और इसमें जटिल रणनीतियाँ, वीरता के कार्य, और दिव्य हस्तक्षेप शामिल होते हैं। भगवान कृष्ण अर्जुन के सारथी और मार्गदर्शक के रूप में कार्य करते हैं, और भगवद गीता के माध्यम से आध्यात्मिक ज्ञान प्रदान करते हैं। अंततः, पांडव विजयी होते हैं, लेकिन भारी कीमत चुकानी पड़ती है। महाभारत कर्तव्य, धार्मिकता, वफादारी, और अपने कार्यों के परिणामों के विषयों का अन्वेषण करता है।",
+      "summary": "महाभारत हस्तिनापुर के सिंहासन के लिए पांडव और कौरव के बीच की प्रतिद्वंद्विता की कहानी बताता है, जो कुरुक्षेत्र के महान युद्ध में परिणत होती है। भगवान कृष्ण के मार्गदर्शन के साथ, पांडव जीतते हैं लेकिन महत्वपूर्ण नुकसान का सामना करते हैं। महाकाव्य कर्तव्य, धार्मिकता, वफादारी, और परिणामों के विषयों में गहराई से उतरता है।",
+      "moral": "महाभारत हमें धार्मिकता (धर्म), परिवार और दोस्तों के प्रति वफादारी, और यह समझने के महत्व के बारे में सिखाता है कि हमारे कार्यों के परिणाम होते हैं जो न केवल हमें बल्कि हमारे आस-पास के लोगों को भी प्रभावित कर सकते हैं।",
+      "language": "hindi",
+      "type": "text_with_visuals"
+    }
+  },
+  "the-story-of-shiva": {
+    "english": {
+      "title": "The Story of Shiva",
+      "story": "Lord Shiva, one of the principal deities in Hinduism, is known as the destroyer and transformer within the Trimurti, which also includes Brahma the creator and Vishnu the preserver. Shiva's story is rich with symbolism and mythology. He is often depicted as a yogi who lives in the Himalayas, adorned with ashes and a serpent around his neck. One of the most famous tales about Shiva is his marriage to Parvati, who was born from the sweat of Lord Shiva himself. Their love story is a testament to devotion and transformation. Another significant story is about how Shiva drank the poison Halahala during the churning of the ocean (Samudra Manthan) to save the universe from destruction. This act turned his throat blue, earning him the name Neelkanth. Shiva's stories emphasize themes of asceticism, compassion, and the cyclical nature of creation and destruction.",
+      "summary": "Lord Shiva is a major deity in Hinduism known for his role as a destroyer and transformer. His stories include his marriage to Parvati and his act of drinking poison to save the universe. These tales highlight themes of devotion, transformation, asceticism, compassion, and the cycle of creation and destruction.",
+      "moral": "The stories of Lord Shiva teach us about the importance of selflessness, devotion, and understanding that destruction can lead to new beginnings and transformation.",
+      "language": "english",
+      "type": "text_with_visuals"
+    },
+    "hindi": {
+      "title": "शिव की कहानी",
+      "story": "भगवान शिव, हिंदू धर्म के प्रमुख देवताओं में से एक हैं, जिन्हें त्रिमूर्ति में विनाशक और परिवर्तक के रूप में जाना जाता है, जिसमें ब्रह्मा सृष्टिकर्ता और विष्णु पालनकर्ता भी शामिल हैं। शिव की कहानी प्रतीकवाद और पौराणिक कथाओं से भरपूर है। उन्हें अक्सर हिमालय में रहने वाले योगी के रूप में चित्रित किया जाता है, जो राख से सजे होते हैं और उनके गले में एक साँप होता है। शिव के बारे में सबसे प्रसिद्ध कथाओं में से एक उनकी शादी पार्वती से है, जो स्वयं भगवान शिव की पसीने से जन्मी थीं। उनकी प्रेम कहानी भक्ति और परिवर्तन की गवाही है। एक अन्य महत्वपूर्ण कहानी समुद्र मंथन के दौरान शिव द्वारा हलाहल विष पीने की है, जिससे उन्होंने ब्रह्मांड को विनाश से बचाया। इस कार्य ने उनके गले को नीला कर दिया, जिससे उन्हें नीलकंठ कहा जाने लगा। शिव की कहानियां तपस्या, करुणा, और सृष्टि और विनाश के चक्रीय प्रकृति के विषयों पर जोर देती हैं।",
+      "summary": "भगवान शिव हिंदू धर्म के एक प्रमुख देवता हैं, जो विनाशक और परिवर्तक के रूप में जाने जाते हैं। उनकी कहानियों में पार्वती से उनकी शादी और ब्रह्मांड को बचाने के लिए विष पीने का कार्य शामिल है। ये कथाएं भक्ति, परिवर्तन, तपस्या, करुणा, और सृष्टि और विनाश के चक्र के विषयों को उजागर करती हैं।",
+      "moral": "भगवान शिव की कहानियां हमें निःस्वार्थता, भक्ति, और यह समझने के महत्व के बारे में सिखाती हैं कि विनाश नए आरंभ और परिवर्तन की ओर ले जा सकता है।",
+      "language": "hindi",
+      "type": "text_with_visuals"
+    }
+  }
 }

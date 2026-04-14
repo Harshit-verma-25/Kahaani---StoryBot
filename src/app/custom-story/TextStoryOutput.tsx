@@ -108,14 +108,29 @@ const TextStoryOutput = ({
           </div>
         )}
         {activeTab === "Summary" && (
-          <p className="space-y-3 text-center text-lg sm:text-xl font-semibold leading-relaxed text-secondary whitespace-pre-line">
-            {output.summary}
-          </p>
+          <div className="space-y-3 text-center text-lg sm:text-xl font-semibold leading-relaxed text-secondary whitespace-pre-line">
+            {isStoryLoading ? (
+              <div className="animate-pulse flex flex-col items-center gap-2 mt-4">
+                <div className="h-4 bg-primary/20 rounded w-3/4"></div>
+                <div className="h-4 bg-primary/20 rounded w-full"></div>
+                <div className="h-4 bg-primary/20 rounded w-5/6"></div>
+              </div>
+            ) : (
+              output.summary
+            )}
+          </div>
         )}
         {activeTab === "Moral" && (
-          <p className="space-y-3 text-center text-lg sm:text-xl font-semibold leading-relaxed text-secondary whitespace-pre-line">
-            {output.moral}
-          </p>
+          <div className="space-y-3 text-center text-lg sm:text-xl font-semibold leading-relaxed text-secondary whitespace-pre-line">
+            {isStoryLoading ? (
+              <div className="animate-pulse flex flex-col items-center gap-2 mt-4">
+                <div className="h-4 bg-primary/20 rounded w-3/4"></div>
+                <div className="h-4 bg-primary/20 rounded w-1/2"></div>
+              </div>
+            ) : (
+              output.moral
+            )}
+          </div>
         )}
       </div>
     </>

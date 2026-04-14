@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { HiMiniSpeakerWave } from "react-icons/hi2";
@@ -9,6 +9,7 @@ import { FaRegCircleStop } from "react-icons/fa6";
 type Props = {
   story: string;
   audioUrl?: string;
+  isAudioLoading?: boolean;
 };
 
 function splitIntoSentences(text: string): string[] {
@@ -26,7 +27,11 @@ function getSentenceWeight(sentence: string) {
   return Math.max(normalized.length, 1);
 }
 
-export default function StoryReader({ story, audioUrl }: Props) {
+export default function StoryReader({
+  story,
+  audioUrl,
+  isAudioLoading = false,
+}: Props) {
   const sentences = useMemo(() => splitIntoSentences(story), [story]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const activeRef = useRef<HTMLDivElement | null>(null);
@@ -196,7 +201,7 @@ export default function StoryReader({ story, audioUrl }: Props) {
     <div className="mx-auto flex w-full flex-col items-center px-4 py-6">
       <audio ref={audioRef} src={audioUrl} preload="metadata" className="hidden" />
 
-      <div className="max-h-[220px] w-full overflow-y-auto scrollbar-none">
+      <div className="max-h-[380px] w-full overflow-y-auto scrollbar-none">
         <div className="space-y-3 text-center leading-relaxed">
         {sentences.map((sentence, index) => {
           const isActive = index === current;
@@ -259,11 +264,19 @@ export default function StoryReader({ story, audioUrl }: Props) {
         </div>
       )}
 
+      {!hasAudio && isAudioLoading && (
+        <div className="mt-6 flex items-center gap-2 rounded-full border-2 border-primary/20 bg-primary/10 p-1">
+          <div className="h-10 w-28 animate-pulse rounded-full bg-primary/15" />
+          <div className="h-10 w-10 animate-pulse rounded-full bg-primary/15" />
+          <div className="h-10 w-10 animate-pulse rounded-full bg-primary/15" />
+        </div>
+      )}
+
       {audioError && (
         <p className="mt-3 text-center text-sm text-red-600">{audioError}</p>
       )}
 
-      {!hasAudio && !audioError && (
+      {!hasAudio && !isAudioLoading && !audioError && (
         <p className="mt-4 text-sm text-neutral-500 text-center">
           Audio is not available for this story yet.
         </p>

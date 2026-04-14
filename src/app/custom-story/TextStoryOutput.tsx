@@ -8,12 +8,42 @@ interface TextStoryOutputProps {
     tab: "Full Story" | "Summary" | "Moral" | "Full Video",
   ) => void;
   output: TextStoryFormat;
+  isStoryLoading?: boolean;
+  isImageLoading?: boolean;
+  isTTSLoading?: boolean;
 }
+
+const SkeletonBar = ({ className }: { className: string }) => (
+  <div className={`animate-pulse rounded-full bg-primary/15 ${className}`} />
+);
+
+const TextStoryOutputSkeleton = ({
+  isStoryLoading,
+}: {
+  isStoryLoading: boolean;
+}) => (
+  <div className="mx-auto flex w-full flex-col items-center px-4 py-6">
+    <div className="max-w-[684px] w-full space-y-4">
+      {isStoryLoading ? (
+        <>
+          <SkeletonBar className="h-6 w-11/12 mx-auto" />
+          <SkeletonBar className="h-6 w-10/12 mx-auto" />
+          <SkeletonBar className="h-6 w-full mx-auto" />
+          <SkeletonBar className="h-6 w-9/12 mx-auto" />
+          <SkeletonBar className="h-6 w-8/12 mx-auto" />
+        </>
+      ) : null}
+    </div>
+  </div>
+);
 
 const TextStoryOutput = ({
   activeTab,
   setActiveTab,
   output,
+  isStoryLoading = false,
+  isImageLoading = false,
+  isTTSLoading = false,
 }: TextStoryOutputProps) => {
   return (
     <>
@@ -47,11 +77,34 @@ const TextStoryOutput = ({
       </div>
       <div className="bg-transparent w-full flex flex-col items-center justify-center">
         {activeTab === "Full Story" && (
-          <div className="flex w-full items-center gap-6">
+          <div className="flex w-full items-center gap-6 max-lg:flex-col">
             <div className="w-full max-w-3xl">
-              <ImageCarousel images={output.images} interval={10000} />
+              {isImageLoading && !output.images.length ? (
+                <>
+                  <div className="animate-pulse rounded-lg bg-primary/10 w-full h-[468px]" />
+                  <div className="mt-3 flex justify-center gap-2">
+                    {[0, 1, 2].map((dot) => (
+                      <div
+                        key={dot}
+                        className="h-2 w-2 rounded-full bg-primary/15 animate-pulse"
+                      />
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <ImageCarousel images={output.images} interval={10000} />
+              )}
             </div>
-            <StoryReader story={output.story} audioUrl={output.audioUrl} />
+
+            {isStoryLoading && !output.story ? (
+              <TextStoryOutputSkeleton isStoryLoading={isStoryLoading} />
+            ) : (
+              <StoryReader
+                story={output.story}
+                audioUrl={output.audioUrl}
+                isAudioLoading={isTTSLoading}
+              />
+            )}
           </div>
         )}
         {activeTab === "Summary" && (

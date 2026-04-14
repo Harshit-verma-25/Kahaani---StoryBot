@@ -303,9 +303,13 @@ const GenerateStoryPageContent = () => {
         {output && (
           <>
             <div className="text-center max-w-3xl">
-              <h1 className="text-xl sm:text-2xl lg:text-4xl text-primary font-medium">
-                &quot;{output.title}&quot;
-              </h1>
+              {isStoryLoading ? (
+                <div className="mx-auto h-10 w-72 max-w-full animate-pulse rounded-full bg-primary/15 sm:h-12 sm:w-96" />
+              ) : (
+                <h1 className="text-xl sm:text-2xl lg:text-4xl text-primary font-medium">
+                  &quot;{output.title}&quot;
+                </h1>
+              )}
             </div>
 
             {storyFormData.format === "text_story_with_visuals" ? (
@@ -313,6 +317,9 @@ const GenerateStoryPageContent = () => {
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
                 output={output as TextStoryFormat}
+                isStoryLoading={isStoryLoading}
+                isImageLoading={isImageLoading}
+                isTTSLoading={isTTSLoading}
               />
             ) : storyFormData.format === "video_story" ? (
               <VideoStoryOutput

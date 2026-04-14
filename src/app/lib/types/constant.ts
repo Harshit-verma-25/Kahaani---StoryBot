@@ -1,12 +1,5 @@
 import { GeneratedStory, languageOption } from "./types";
 
-export const EMPTY_OUTPUT: GeneratedStory = {
-  story: "",
-  summary: "",
-  title: "",
-  moral: "",
-};
-
 export const LOADING_MESSAGES = [
   "Generating...",
   "Thinking...",

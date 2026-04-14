@@ -89,9 +89,7 @@ const StoryPageClient = ({ slug }: StoryPageClientProps) => {
         </div>
 
         <div className="bg-transparent rounded-xl max-w-3xl w-full flex flex-col items-center justify-center">
-          {activeTab === "Full Story" && (
-            <StoryReader story={output.story} language={language} />
-          )}
+          {activeTab === "Full Story" && <StoryReader story={output.story} />}
           {activeTab === "Summary" && (
             <p className="space-y-3 text-center text-lg sm:text-xl font-semibold leading-relaxed text-secondary whitespace-pre-line">
               {output.summary}

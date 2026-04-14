@@ -1,3 +1,5 @@
+"use server";
+
 import { GeneratedStory } from "../../types/types";
 import genAI from "../genAI";
 

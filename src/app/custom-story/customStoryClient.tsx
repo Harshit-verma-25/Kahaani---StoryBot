@@ -2,34 +2,46 @@
 
 import Image from "next/image";
 import { FaMagic } from "react-icons/fa";
-import { useState, useEffect, Suspense, useMemo } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { GeneratedStory, StoryFormData } from "@/app/lib/types/types";
+import {
+  StoryFormData,
+  TextStoryFormat,
+  VideoStoryFormat,
+} from "@/app/lib/types/types";
 import { toast } from "react-toastify";
-import StoryReader from "@/app/components/storyReader";
 import { RiLoader2Fill } from "react-icons/ri";
 import CustomSelect from "@/app/components/forms/customSelect";
-import {
-  EMPTY_OUTPUT,
-  LOADING_MESSAGES,
-  LANGUAGE_OPTIONS,
-} from "@/app/lib/types/constant";
+import { LOADING_MESSAGES, LANGUAGE_OPTIONS } from "@/app/lib/types/constant";
+import TextStoryOutput from "./TextStoryOutput";
+import VideoStoryOutput from "./VideoStoryOutput";
+import generateStory from "@/app/lib/ai/models/storyModel";
+import generateStoryImage from "@/app/lib/ai/models/imageModel";
+import generateSpeech from "@/app/lib/ai/models/ttsModel";
 
 const GenerateStoryPageContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const [currentMessage, setCurrentMessage] = useState(LOADING_MESSAGES[0]);
-  const [StoryFormData, setStoryFormData] = useState<StoryFormData>({
+  const [storyFormData, setStoryFormData] = useState<StoryFormData>({
     prompt: "",
     moral: "",
     format: "text_story_with_visuals",
     language: "hindi",
   });
+
+  const [isStoryLoading, setIsStoryLoading] = useState(false);
+  const [isTTSLoading, setIsTTSLoading] = useState(false);
+  const [isImageLoading, setIsImageLoading] = useState(false);
+  const [isVideoLoading, setIsVideoLoading] = useState(false);
+
   const [loading, setLoading] = useState(false);
-  const [output, setOutput] = useState<GeneratedStory>(EMPTY_OUTPUT);
+  const [output, setOutput] = useState<
+    VideoStoryFormat | TextStoryFormat | null
+  >(null);
   const [activeTab, setActiveTab] = useState<
-    "Full Story" | "Summary" | "Moral"
+    "Full Story" | "Summary" | "Moral" | "Full Video"
   >("Full Story");
 
   useEffect(() => {
@@ -57,7 +69,7 @@ const GenerateStoryPageContent = () => {
   useEffect(() => {
     if (searchParams.get("reset") !== "1") return;
 
-    setOutput(EMPTY_OUTPUT);
+    setOutput(null);
     setActiveTab("Full Story");
     router.replace("/custom-story", { scroll: false });
   }, [searchParams, router]);
@@ -72,20 +84,98 @@ const GenerateStoryPageContent = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!StoryFormData.prompt.trim()) {
+    if (!storyFormData.prompt.trim()) {
       toast.warning("Please enter a prompt.");
       return;
     }
 
-    if (!StoryFormData.language.trim()) {
+    if (!storyFormData.language.trim()) {
       toast.warning("Please select a language.");
       return;
     }
 
     try {
       setLoading(true);
-      if (StoryFormData.format === "text_story_with_visuals") {
-        // Handle text story generation
+
+      if (storyFormData.format === "text_story_with_visuals") {
+        setIsStoryLoading(true);
+        setIsImageLoading(true);
+        setIsTTSLoading(true);
+
+        const newOutput: TextStoryFormat = {
+          language: storyFormData.language,
+          title: "",
+          story: "",
+          summary: "",
+          moral: "",
+          images: [],
+          audioUrl: "",
+          contentType: "mp3",
+          size: 0,
+        };
+        setOutput(newOutput);
+
+        const promptParam = storyFormData.prompt;
+
+        const imagePromise = generateStoryImage(promptParam)
+          .then((imagesData) => {
+            const imageUrls = imagesData.map(
+              (img) =>
+                `data:${img.image.mimeType};base64,${img.image.imageBytes}`,
+            );
+            setOutput((prev) =>
+              prev
+                ? ({
+                    ...prev,
+                    images: (prev as TextStoryFormat).images
+                      ? (prev as TextStoryFormat).images.concat(imageUrls)
+                      : imageUrls,
+                  } as TextStoryFormat)
+                : prev,
+            );
+          })
+          .catch((err) => console.error("Image generation failed:", err))
+          .finally(() => setIsImageLoading(false));
+
+        const generatedStory = await generateStory(
+          promptParam,
+          storyFormData.language,
+        );
+
+        setOutput((prev) =>
+          prev
+            ? ({
+                ...prev,
+                title: generatedStory.title,
+                story: generatedStory.story,
+                summary: generatedStory.summary,
+                moral: generatedStory.moral,
+              } as TextStoryFormat)
+            : prev,
+        );
+        setIsStoryLoading(false);
+        setLoading(false);
+
+        const ttsPromise = generateSpeech(generatedStory.story)
+          .then((ttsData) => {
+            const resolvedMimeType = ttsData.mimeType || "audio/mp3";
+            const audioUrl = `data:${resolvedMimeType};base64,${ttsData.audioBase64}`;
+            setOutput((prev) =>
+              prev
+                ? ({
+                    ...prev,
+                    audioUrl,
+                    contentType: resolvedMimeType.includes("wav")
+                      ? "wav"
+                      : "mp3",
+                  } as TextStoryFormat)
+                : prev,
+            );
+          })
+          .catch((err) => console.error("TTS generation failed:", err))
+          .finally(() => setIsTTSLoading(false));
+
+        await Promise.all([imagePromise, ttsPromise]);
       }
     } catch (error) {
       console.error("Error generating story:", error);
@@ -98,9 +188,9 @@ const GenerateStoryPageContent = () => {
   };
 
   return (
-    <section className="min-h-[calc(100vh-4.5rem)] bg-background flex items-center justify-center">
+    <section className="min-h-screen bg-background flex items-center justify-center">
       <div className="max-w-7xl w-full mx-auto flex flex-col items-center justify-center px-4 gap-6 md:gap-10">
-        {!output.story && (
+        {!output && (
           <>
             <div className="text-center">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl text-primary font-medium">
@@ -134,7 +224,7 @@ const GenerateStoryPageContent = () => {
                   placeholder="Example: A brave little elephant who overcomes challenges to find his way back home."
                   id="prompt"
                   className="outline-none resize-none p-2 border border-primary rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-primary"
-                  value={StoryFormData.prompt}
+                  value={storyFormData.prompt}
                   onChange={handleChange}
                 />
               </div>
@@ -148,7 +238,7 @@ const GenerateStoryPageContent = () => {
                   placeholder="Example: Honesty"
                   id="moral"
                   className="outline-none p-2 border border-primary rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-primary"
-                  value={StoryFormData.moral}
+                  value={storyFormData.moral}
                   onChange={handleChange}
                 />
               </div>
@@ -159,7 +249,7 @@ const GenerateStoryPageContent = () => {
                 </label>
                 <CustomSelect
                   id="format"
-                  value={StoryFormData.format}
+                  value={storyFormData.format}
                   options={[
                     {
                       value: "text_story_with_visuals",
@@ -180,7 +270,7 @@ const GenerateStoryPageContent = () => {
                 </label>
                 <CustomSelect
                   id="language"
-                  value={StoryFormData.language}
+                  value={storyFormData.language}
                   options={LANGUAGE_OPTIONS}
                   placeholder="Select language"
                   onChange={(value) =>
@@ -210,7 +300,7 @@ const GenerateStoryPageContent = () => {
           </>
         )}
 
-        {output.story && (
+        {output && (
           <>
             <div className="text-center max-w-3xl">
               <h1 className="text-xl sm:text-2xl lg:text-4xl text-primary font-medium">
@@ -218,56 +308,19 @@ const GenerateStoryPageContent = () => {
               </h1>
             </div>
 
-            <div className="bg-primary/20 border-2 border-primary rounded-full p-1 flex items-center">
-              <p
-                className={`px-3 py-1 rounded-full w-fit font-medium cursor-pointer ${
-                  activeTab === "Full Story"
-                    ? "bg-primary text-white"
-                    : "text-primary"
-                }`}
-                onClick={() => setActiveTab("Full Story")}
-              >
-                Full Story
-              </p>
-              <p
-                className={`px-3 py-1 rounded-full w-fit font-medium cursor-pointer ${
-                  activeTab === "Summary"
-                    ? "bg-primary text-white"
-                    : "text-primary"
-                }`}
-                onClick={() => setActiveTab("Summary")}
-              >
-                Summary
-              </p>
-              <p
-                className={`px-3 py-1 rounded-full w-fit font-medium cursor-pointer ${
-                  activeTab === "Moral"
-                    ? "bg-primary text-white"
-                    : "text-primary"
-                }`}
-                onClick={() => setActiveTab("Moral")}
-              >
-                Moral
-              </p>
-            </div>
-            <div className="bg-transparent rounded-xl max-w-3xl w-full flex flex-col items-center justify-center">
-              {activeTab === "Full Story" && (
-                <StoryReader
-                  story={output.story}
-                  language={StoryFormData.language}
-                />
-              )}
-              {activeTab === "Summary" && (
-                <p className="space-y-3 text-center text-lg sm:text-xl font-semibold leading-relaxed text-secondary whitespace-pre-line">
-                  {output.summary}
-                </p>
-              )}
-              {activeTab === "Moral" && (
-                <p className="space-y-3 text-center text-lg sm:text-xl font-semibold leading-relaxed text-secondary whitespace-pre-line">
-                  {output.moral}
-                </p>
-              )}
-            </div>
+            {storyFormData.format === "text_story_with_visuals" ? (
+              <TextStoryOutput
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+                output={output as TextStoryFormat}
+              />
+            ) : storyFormData.format === "video_story" ? (
+              <VideoStoryOutput
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+                output={output as VideoStoryFormat}
+              />
+            ) : null}
           </>
         )}
       </div>

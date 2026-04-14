@@ -5,77 +5,10 @@ import { HiMiniSpeakerWave } from "react-icons/hi2";
 import { IoPauseCircleOutline } from "react-icons/io5";
 import { RiRestartLine } from "react-icons/ri";
 import { FaRegCircleStop } from "react-icons/fa6";
-import { StoryFormData } from "@/app/lib/types/types";
 
 type Props = {
   story: string;
-  language?: StoryFormData["language"];
-  rate?: number;
-  pitch?: number;
-};
-
-const LANGUAGE_VOICE_CONFIG: Record<
-  StoryFormData["language"],
-  {
-    langPrefixes: string[];
-    preferredVoiceNameIncludes: string[];
-    fallbackUtteranceLang: string;
-  }
-> = {
-  english: {
-    langPrefixes: ["en-gb", "en-in", "en"],
-    preferredVoiceNameIncludes: [
-      "google uk english",
-      "google english",
-      "microsoft heera",
-    ],
-    fallbackUtteranceLang: "en-IN",
-  },
-  hindi: {
-    langPrefixes: ["hi"],
-    preferredVoiceNameIncludes: ["google हिन्दी", "hindi", "microsoft swara"],
-    fallbackUtteranceLang: "hi-IN",
-  },
-  marathi: {
-    langPrefixes: ["mr"],
-    preferredVoiceNameIncludes: ["marathi"],
-    fallbackUtteranceLang: "mr-IN",
-  },
-  bangla: {
-    langPrefixes: ["bn"],
-    preferredVoiceNameIncludes: ["bengali", "bangla"],
-    fallbackUtteranceLang: "bn-IN",
-  },
-  tamil: {
-    langPrefixes: ["ta"],
-    preferredVoiceNameIncludes: ["tamil"],
-    fallbackUtteranceLang: "ta-IN",
-  },
-  telugu: {
-    langPrefixes: ["te"],
-    preferredVoiceNameIncludes: ["telugu"],
-    fallbackUtteranceLang: "te-IN",
-  },
-  kannada: {
-    langPrefixes: ["kn"],
-    preferredVoiceNameIncludes: ["kannada"],
-    fallbackUtteranceLang: "kn-IN",
-  },
-  malayalam: {
-    langPrefixes: ["ml"],
-    preferredVoiceNameIncludes: ["malayalam"],
-    fallbackUtteranceLang: "ml-IN",
-  },
-  gujarati: {
-    langPrefixes: ["gu"],
-    preferredVoiceNameIncludes: ["gujarati"],
-    fallbackUtteranceLang: "gu-IN",
-  },
-  punjabi: {
-    langPrefixes: ["pa"],
-    preferredVoiceNameIncludes: ["punjabi", "panjabi"],
-    fallbackUtteranceLang: "pa-IN",
-  },
+  audioUrl?: string;
 };
 
 function splitIntoSentences(text: string): string[] {
@@ -84,53 +17,53 @@ function splitIntoSentences(text: string): string[] {
       .replace(/\s+/g, " ")
       .trim()
       .match(/[^.!?।]+[.!?।]?/g) || [];
-  return parts.map((s) => s.trim()).filter(Boolean);
+
+  return parts.map((sentence) => sentence.trim()).filter(Boolean);
 }
 
-export default function StoryReader({
-  story,
-  language = "english",
-  rate = 1,
-  pitch = 1,
-}: Props) {
+function getSentenceWeight(sentence: string) {
+  const normalized = sentence.replace(/\s+/g, " ").trim();
+  return Math.max(normalized.length, 1);
+}
+
+export default function StoryReader({ story, audioUrl }: Props) {
   const sentences = useMemo(() => splitIntoSentences(story), [story]);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const activeRef = useRef<HTMLDivElement | null>(null);
 
   const [current, setCurrent] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const isPlayingRef = useRef(false); // synchronous mirror of isPlaying
-  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
+  const [duration, setDuration] = useState(0);
+  const [audioError, setAudioError] = useState<string | null>(null);
 
-  // Stop and reset player whenever language changes
+  const hasAudio = Boolean(audioUrl?.trim());
+
+  const sentenceStartFractions = useMemo(() => {
+    if (!sentences.length) return [];
+
+    const weights = sentences.map(getSentenceWeight);
+    const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
+    let runningWeight = 0;
+
+    return weights.map((weight) => {
+      const startFraction = totalWeight === 0 ? 0 : runningWeight / totalWeight;
+      runningWeight += weight;
+      return { startFraction, weight };
+    });
+  }, [sentences]);
+
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.speechSynthesis.cancel();
-    }
-    // keep ref + state in sync so playback won't resume unexpectedly
-    isPlayingRef.current = false;
-    setIsPlaying(false);
     setCurrent(0);
-  }, [language]);
+    setIsPlaying(false);
+    setDuration(0);
+    setAudioError(null);
 
-  const activeRef = useRef<HTMLDivElement | null>(null);
-  const utterRef = useRef<SpeechSynthesisUtterance | null>(null);
-  const speakingRef = useRef(false); // prevents overlapping speaks
+    const audio = audioRef.current;
+    if (!audio) return;
 
-  // Helper to set both state and ref together
-  const setPlaying = (v: boolean) => {
-    isPlayingRef.current = v;
-    setIsPlaying(v);
-  };
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const synth = window.speechSynthesis;
-    const handleVoices = () => setVoices(synth.getVoices());
-    handleVoices();
-    synth.onvoiceschanged = handleVoices;
-    return () => {
-      synth.onvoiceschanged = null;
-    };
-  }, []);
+    audio.pause();
+    audio.currentTime = 0;
+  }, [story, audioUrl]);
 
   useEffect(() => {
     if (activeRef.current) {
@@ -138,223 +71,140 @@ export default function StoryReader({
     }
   }, [current]);
 
-  const chosenVoice = useMemo(() => {
-    if (!voices.length) return undefined;
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio || !hasAudio) return;
 
-    const config = LANGUAGE_VOICE_CONFIG[language];
-
-    const preferredByName = voices.find((voice) =>
-      config.preferredVoiceNameIncludes.some((keyword) =>
-        voice.name?.toLowerCase().includes(keyword.toLowerCase()),
-      ),
-    );
-    if (preferredByName) return preferredByName;
-
-    const fallbackByLanguageCode = voices.find((voice) =>
-      config.langPrefixes.some((prefix) =>
-        voice.lang?.toLowerCase().startsWith(prefix),
-      ),
-    );
-    if (fallbackByLanguageCode) return fallbackByLanguageCode;
-
-    // final fallback
-    return voices.find((v) => v.default) || voices[0];
-  }, [voices, language]);
-
-  // Cancel any existing speech and clear refs
-  const cancelSpeech = () => {
-    if (typeof window === "undefined") return;
-    const synth = window.speechSynthesis;
-    synth.cancel();
-    utterRef.current = null;
-    speakingRef.current = false;
-  };
-
-  // Speak a sentence index. Defensive: cancel prior, guard double-calls.
-  const speakCurrent = (index: number, useSafeFallback = false) => {
-    if (typeof window === "undefined") return;
-    if (!sentences[index]) {
-      setPlaying(false);
-      return;
-    }
-
-    // If another speak is in progress, cancel it first (defensive).
-    cancelSpeech();
-
-    // small guard
-    if (speakingRef.current) return;
-    speakingRef.current = true;
-
-    const synth = window.speechSynthesis;
-    const u = new SpeechSynthesisUtterance(sentences[index]);
-    utterRef.current = u;
-    if (useSafeFallback) {
-      const defaultVoice = voices.find((voice) => voice.default) || voices[0];
-      if (defaultVoice) {
-        u.voice = defaultVoice;
-        u.lang = defaultVoice.lang;
-      }
-    } else {
-      if (chosenVoice) {
-        u.voice = chosenVoice;
-        u.lang = chosenVoice.lang;
-      }
-    }
-    u.rate = rate;
-    u.pitch = pitch;
-
-    let ended = false;
-
-    u.onend = () => {
-      if (ended) return;
-      ended = true;
-
-      utterRef.current = null;
-      speakingRef.current = false;
-
-      setCurrent((prev) => {
-        const next = prev + 1;
-        if (next < sentences.length) {
-          setTimeout(() => {
-            // If something else started speaking meanwhile, don't start.
-            if (typeof window === "undefined") return;
-            if (
-              window.speechSynthesis.speaking ||
-              window.speechSynthesis.pending
-            ) {
-              return;
-            }
-            // Use ref for the latest user intention
-            if (!isPlayingRef.current) return;
-            speakCurrent(next);
-          }, 80);
-        } else {
-          setPlaying(false);
-        }
-        return next;
-      });
-    };
-
-    u.onerror = () => {
-      utterRef.current = null;
-      speakingRef.current = false;
-
-      if (!useSafeFallback) {
-        setTimeout(() => {
-          if (!isPlayingRef.current) return;
-          speakCurrent(index, true);
-        }, 30);
+    const updateCurrentSentence = () => {
+      if (!sentenceStartFractions.length || !audio.duration) {
+        setCurrent(0);
         return;
       }
 
-      setPlaying(false);
+      const progress = Math.min(audio.currentTime / audio.duration, 0.999999);
+      let activeSentence = 0;
+
+      for (let index = 0; index < sentenceStartFractions.length; index += 1) {
+        if (progress >= sentenceStartFractions[index].startFraction) {
+          activeSentence = index;
+        } else {
+          break;
+        }
+      }
+
+      setCurrent(activeSentence);
     };
 
+    const handleLoadedMetadata = () => {
+      setDuration(Number.isFinite(audio.duration) ? audio.duration : 0);
+      updateCurrentSentence();
+    };
+
+    const handleTimeUpdate = () => {
+      updateCurrentSentence();
+    };
+
+    const handlePlay = () => {
+      setAudioError(null);
+      setIsPlaying(true);
+    };
+
+    const handlePause = () => {
+      setIsPlaying(false);
+      updateCurrentSentence();
+    };
+
+    const handleEnded = () => {
+      setIsPlaying(false);
+      setCurrent(Math.max(sentences.length - 1, 0));
+    };
+
+    const handleError = () => {
+      setIsPlaying(false);
+      setAudioError("This audio format could not be played in the browser.");
+    };
+
+    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+    audio.addEventListener("timeupdate", handleTimeUpdate);
+    audio.addEventListener("play", handlePlay);
+    audio.addEventListener("pause", handlePause);
+    audio.addEventListener("ended", handleEnded);
+    audio.addEventListener("error", handleError);
+
+    return () => {
+      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      audio.removeEventListener("timeupdate", handleTimeUpdate);
+      audio.removeEventListener("play", handlePlay);
+      audio.removeEventListener("pause", handlePause);
+      audio.removeEventListener("ended", handleEnded);
+      audio.removeEventListener("error", handleError);
+    };
+  }, [hasAudio, sentenceStartFractions, sentences.length]);
+
+  const handlePlayPause = async () => {
+    const audio = audioRef.current;
+    if (!audio || !hasAudio || !sentences.length) return;
+
+    if (audio.ended || audio.currentTime >= duration) {
+      audio.currentTime = 0;
+      setCurrent(0);
+    }
+
+    if (!audio.paused) {
+      audio.pause();
+      return;
+    }
+
     try {
-      synth.speak(u);
-    } catch (err) {
-      utterRef.current = null;
-      speakingRef.current = false;
-      setPlaying(false);
-      console.error("TTS speak error:", err);
+      setAudioError(null);
+      await audio.play();
+    } catch (error) {
+      setIsPlaying(false);
+      setAudioError("Audio playback failed. Please try generating the story again.");
+      console.error("Audio playback failed:", error);
     }
   };
 
-  const handlePlayPause = () => {
-    if (typeof window === "undefined") return;
-    if (!sentences.length) return;
+  const handleRestart = async () => {
+    const audio = audioRef.current;
+    if (!audio || !hasAudio) return;
 
-    const synth = window.speechSynthesis;
-
-    // If currently playing audio, pause it
-    if (isPlayingRef.current && synth.speaking && !synth.paused) {
-      synth.pause();
-      setPlaying(false);
-      return;
-    }
-
-    // If paused, resume
-    if (synth.paused) {
-      setPlaying(true);
-      synth.resume();
-      return;
-    }
-
-    // Start fresh from current pointer
-    cancelSpeech();
-    setPlaying(true);
-
-    // Slight delay to ensure cancel takes effect in all browsers.
-    // Use the ref here (not state) so we don't depend on async setState.
-    setTimeout(() => {
-      if (!isPlayingRef.current) return; // user may have toggled meanwhile
-      speakCurrent(current);
-    }, 30);
-  };
-
-  const handleRestart = () => {
-    cancelSpeech();
+    audio.currentTime = 0;
     setCurrent(0);
-    // Start playing immediately after restart
-    setPlaying(true);
-    setTimeout(() => {
-      if (!isPlayingRef.current) return;
-      speakCurrent(0);
-    }, 30);
+
+    try {
+      setAudioError(null);
+      await audio.play();
+    } catch (error) {
+      setIsPlaying(false);
+      setAudioError("Audio playback failed. Please try generating the story again.");
+      console.error("Audio restart failed:", error);
+    }
   };
 
   const handleStop = () => {
-    cancelSpeech();
+    const audio = audioRef.current;
+    if (!audio || !hasAudio) return;
+
+    audio.pause();
+    audio.currentTime = 0;
     setCurrent(0);
-    setPlaying(false);
+    setIsPlaying(false);
   };
 
   return (
-    <div className="mx-auto max-h-[200px] overflow-y-auto scrollbar-none px-4 py-6">
-      <div
-        className="bg-primary/20 border-2 border-primary rounded-full p-1 flex items-center gap-2 mb-5 bottom-4 left-1/2 transform -translate-x-1/2 absolute z-20"
-        role="group"
-        aria-label="Story controls"
-      >
-        <button
-          onClick={handlePlayPause}
-          className="rounded-full bg-violet-600 text-white text-sm px-4 py-2 shadow hover:opacity-90 transition"
-          aria-label="Read aloud"
-        >
-          {isPlaying ? (
-            <IoPauseCircleOutline className="text-lg" />
-          ) : (
-            <span className="inline-flex items-center gap-1">
-              Read Aloud
-              <HiMiniSpeakerWave className="text-lg" />
-            </span>
-          )}
-        </button>
-        {isPlaying && (
-          <button
-            onClick={handleRestart}
-            className="rounded-full text-neutral-900 text-sm px-3 py-2 transition"
-          >
-            <RiRestartLine className="text-lg" />
-          </button>
-        )}
-        {isPlaying && (
-          <button
-            onClick={handleStop}
-            className="rounded-full text-neutral-900 text-sm px-3 py-2 transition"
-          >
-            <FaRegCircleStop className="text-lg" />
-          </button>
-        )}
-      </div>
+    <div className="mx-auto flex w-full flex-col items-center px-4 py-6">
+      <audio ref={audioRef} src={audioUrl} preload="metadata" className="hidden" />
 
-      <div className="space-y-3 text-center leading-relaxed">
-        {sentences.map((s, i) => {
-          const isActive = i === current;
-          const isRead = i < current;
+      <div className="max-h-[220px] w-full overflow-y-auto scrollbar-none">
+        <div className="space-y-3 text-center leading-relaxed">
+        {sentences.map((sentence, index) => {
+          const isActive = index === current;
+          const isRead = index < current;
+
           return (
             <div
-              key={i}
+              key={`${index}-${sentence.slice(0, 24)}`}
               ref={isActive ? activeRef : null}
               className={[
                 "transition-colors duration-200",
@@ -365,16 +215,57 @@ export default function StoryReader({
                 "text-lg sm:text-xl",
               ].join(" ")}
             >
-              {s}
+              {sentence}
             </div>
           );
         })}
+        </div>
       </div>
 
-      {!chosenVoice && (
-        <p className="mt-4 text-sm text-neutral-500">
-          Tip: your browser&apos;s TTS voice for “{language}” wasn&apos;t found.
-          It will use the default voice.
+      {hasAudio && (
+        <div
+          className="mt-6 flex items-center gap-2 rounded-full border-2 border-primary bg-primary/20 p-1"
+          role="group"
+          aria-label="Story controls"
+        >
+          <button
+            onClick={handlePlayPause}
+            className="rounded-full bg-violet-600 px-4 py-2 text-sm text-white shadow transition hover:opacity-90"
+            aria-label={isPlaying ? "Pause audio" : "Play audio"}
+          >
+            {isPlaying ? (
+              <IoPauseCircleOutline className="text-lg" />
+            ) : (
+              <span className="inline-flex items-center gap-1">
+                Read Aloud
+                <HiMiniSpeakerWave className="text-lg" />
+              </span>
+            )}
+          </button>
+          <button
+            onClick={handleRestart}
+            className="rounded-full px-3 py-2 text-sm text-neutral-900 transition"
+            aria-label="Restart audio"
+          >
+            <RiRestartLine className="text-lg" />
+          </button>
+          <button
+            onClick={handleStop}
+            className="rounded-full px-3 py-2 text-sm text-neutral-900 transition"
+            aria-label="Stop audio"
+          >
+            <FaRegCircleStop className="text-lg" />
+          </button>
+        </div>
+      )}
+
+      {audioError && (
+        <p className="mt-3 text-center text-sm text-red-600">{audioError}</p>
+      )}
+
+      {!hasAudio && !audioError && (
+        <p className="mt-4 text-sm text-neutral-500 text-center">
+          Audio is not available for this story yet.
         </p>
       )}
     </div>

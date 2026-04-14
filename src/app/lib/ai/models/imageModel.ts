@@ -1,3 +1,5 @@
+"use server";
+
 import { PersonGeneration } from "@google/genai";
 import genAI from "../genAI";
 import { GeneratedImage } from "../../types/types";

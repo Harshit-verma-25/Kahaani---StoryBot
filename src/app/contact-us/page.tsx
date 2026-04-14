@@ -127,8 +127,8 @@ const ContactUsPage = () => {
   };
 
   return (
-    <section className="min-h-screen bg-background flex items-center justify-center">
-      <div className="max-w-7xl w-full mx-auto flex flex-col items-center justify-center px-4 gap-6 md:gap-10">
+    <section className="min-h-screen bg-background flex items-center justify-center pt-8">
+      <div className="max-w-7xl w-full mx-auto flex flex-col items-center justify-center px-4 gap-6 md:pb-28 pb-10">
         <div className="text-center">
           <h1 className="text-3xl sm:text-[40px] text-primary font-medium">
             Connect with KahaaniBot Team

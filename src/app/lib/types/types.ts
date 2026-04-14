@@ -52,7 +52,7 @@ export interface GeneratedStory {
 }
 
 export interface GeneratedTTS {
-  audioBuffer: Buffer<ArrayBuffer>;
+  audioBase64: string;
   mimeType: string;
 }
 
@@ -68,16 +68,17 @@ export interface inBuiltStory {
 }
 
 export interface VideoStoryFormat {
+  language: languageOption;
   title: string;
   videoUrl: string;
   summary: string;
   moral: string;
-  thumbnailUrl: string;
   contentType: "mp4" | "webm" | "ogg";
   size: number; // in bytes
 }
 
 export interface TextStoryFormat {
+  language: languageOption;
   title: string;
   story: string;
   summary: string;

@@ -10,18 +10,17 @@ export default async function generateStoryVideo(prompt: string) {
   `;
 
   let operation = await genAI.models.generateVideos({
-    model: "veo-3.1-lite-generate-preview",
+    model: "veo-3.1-fast-generate-preview",
     prompt: enhancedPrompt,
     config: {
       aspectRatio: "16:9",
-      resolution: "1080p",
+      resolution: "720p",
       numberOfVideos: 1,
-      durationSeconds: 8,
+      durationSeconds: 6,
     },
   });
 
   while (!operation.done) {
-    console.log("Waiting for video generation to complete...");
     await new Promise((resolve) => setTimeout(resolve, 10000));
     operation = await genAI.operations.getVideosOperation({
       operation: operation,
@@ -31,8 +30,6 @@ export default async function generateStoryVideo(prompt: string) {
   if (!operation.response?.generatedVideos?.length) {
     throw new Error("Failed to generate video. AI returned an empty response.");
   }
-
-  console.log("Video generation response:", operation.response.generatedVideos);
 
   const uri = operation.response?.generatedVideos?.[0]?.video?.uri;
   const apiKey = process.env.GEMINI_API_KEY;

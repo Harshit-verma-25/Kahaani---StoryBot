@@ -63,8 +63,16 @@ export interface GeneratedImage {
   };
 }
 
+export interface inBuiltStoryVideoAudio extends GeneratedStory {
+  audioUrl: string;
+  language: languageOption;
+}
+
 export interface inBuiltStory {
-  [key: string]: Partial<Record<StoryFormData["language"], GeneratedStory>>;
+  [slug: string]: {
+    videoUrl?: string;
+    images: string[];
+  } & Partial<Record<languageOption, inBuiltStoryVideoAudio>>;
 }
 
 export interface VideoStoryFormat {

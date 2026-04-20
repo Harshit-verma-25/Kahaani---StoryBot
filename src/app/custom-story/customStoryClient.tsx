@@ -241,7 +241,6 @@ const GenerateStoryPageContent = () => {
             : prev,
         );
         setIsVideoLoading(false);
-        console.log("Video data:", videoData);
       }
     } catch (error) {
       console.error("Error generating story:", error);

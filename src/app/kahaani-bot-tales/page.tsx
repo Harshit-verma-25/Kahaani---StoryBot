@@ -4,7 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { FilterType, languageOption } from "@/app/lib/types/types";
-import { LANGUAGE_OPTIONS } from "../lib/types/constant";
+import { LANGUAGE_OPTIONS, STORIES_LIST } from "../lib/types/constant";
+import Link from "next/link";
+import Image from "next/image";
 
 const KahaaniBotTalesPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -37,7 +39,7 @@ const KahaaniBotTalesPage = () => {
     : null;
 
   return (
-    <section className="min-h-[calc(100vh-4.5rem)] bg-background flex items-center justify-center">
+    <section className="min-h-screen bg-background flex items-center justify-center mt-4 mb-20">
       <div className="max-w-7xl w-full mx-auto flex flex-col items-center justify-center px-4 gap-2">
         <div className="w-full text-center">
           <h1 className="text-3xl md:text-[40px] text-primary font-medium">
@@ -142,6 +144,29 @@ const KahaaniBotTalesPage = () => {
               );
             })}
           </div>
+        </div>
+
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-10 items-start mt-4">
+          {STORIES_LIST.map((story, index) => (
+            <div
+              key={index}
+              className="relative rounded-xl h-[250px] overflow-hidden cursor-pointer hover:shadow-lg transition hover:scale-[1.02]"
+            >
+              <Link
+                href={`/stories/${story.slug}`}
+                className="block w-full h-full"
+              >
+                <Image
+                  src={story.thumbnail}
+                  alt={story.title}
+                  width={400}
+                  height={250}
+                  className="w-full h-full object-fill rounded-xl"
+                  priority
+                />
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
     </section>

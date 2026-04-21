@@ -44,7 +44,7 @@ export interface StoryFormData {
   format: StoryFormat;
   language: languageOption;
 }
-interface GeneratedStory {
+export interface GeneratedStory {
   title: string;
   story: string;
   summary: string;

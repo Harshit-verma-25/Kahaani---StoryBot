@@ -1,6 +1,6 @@
 {
   "the-birth-of-ganesha": {
-    "videoUrl": "",
+    "videoUrl": "https://bqubshxvjvqfpbkobhij.supabase.co/storage/v1/object/public/stories/videos/the-birth-of-ganesha.mp4",
     "images": [
       "https://bqubshxvjvqfpbkobhij.supabase.co/storage/v1/object/public/stories/images/the-birth-of-ganesha-image-1.png",
       "https://bqubshxvjvqfpbkobhij.supabase.co/storage/v1/object/public/stories/images/the-birth-of-ganesha-image-2.png",
@@ -888,5 +888,21 @@
       "language": "punjabi",
       "audioUrl": "https://bqubshxvjvqfpbkobhij.supabase.co/storage/v1/object/public/stories/tts/hanuman's-leap-to-lanka-punjabi.wav"
     }
+  },
+  "fox-and-goat": {
+    "videoUrl": "https://bqubshxvjvqfpbkobhij.supabase.co/storage/v1/object/public/stories/videos/fox-and-goat.mp4",
+    "images": []
+  },
+  "little-red-riding-hood": {
+    "videoUrl": "https://bqubshxvjvqfpbkobhij.supabase.co/storage/v1/object/public/stories/videos/little-red-riding-hood.mp4",
+    "images": []
+  },
+  "three-little-pigs": {
+    "videoUrl": "https://bqubshxvjvqfpbkobhij.supabase.co/storage/v1/object/public/stories/videos/three-little-pigs.mp4",
+    "images": []
+  },
+  "wolf-and-seven-lambs": {
+    "videoUrl": "https://bqubshxvjvqfpbkobhij.supabase.co/storage/v1/object/public/stories/videos/wolf-and-seven-lambs.mp4",
+    "images": []
   }
 }

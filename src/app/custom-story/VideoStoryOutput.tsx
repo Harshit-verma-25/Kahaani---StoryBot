@@ -50,7 +50,7 @@ const VideoStoryOutput = ({
       </div>
       <div className="bg-transparent w-full flex flex-col items-center justify-center md:pb-28 pb-10">
         {activeTab === "Full Video" && (
-          <div className="flex w-full max-w-[1126px] h-[300px] lg:h-[634px] items-center justify-center gap-6 max-lg:flex-col overflow-hidden rounded-2xl bg-black">
+          <div className="flex w-full max-w-[1126px] h-[300px] lg:h-[468px] items-center justify-center gap-6 max-lg:flex-col overflow-hidden rounded-2xl bg-black">
             {isVideoLoading ? (
               <div className="flex flex-col items-center justify-center text-white">
                 <AiOutlineLoading3Quarters className="animate-spin text-5xl mb-4 text-primary" />

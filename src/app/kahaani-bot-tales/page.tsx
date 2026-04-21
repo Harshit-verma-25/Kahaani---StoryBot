@@ -192,13 +192,14 @@ const KahaaniBotTalesPage = () => {
 
                   <div className="flex items-center gap-2">
                     {story.hasVideo && (
-                      <>
-                        <CiVideoOn
-                          className="text-2xl text-primary"
-                          title="Has Video"
-                        />
-                        <div className="w-px h-6 bg-primary rounded-full" />
-                      </>
+                      <CiVideoOn
+                        className="text-2xl text-primary"
+                        title="Has Video"
+                      />
+                    )}
+
+                    {story.hasVideo && story.hasImages && (
+                      <div className="w-px h-6 bg-primary rounded-full" />
                     )}
 
                     {story.hasImages && (

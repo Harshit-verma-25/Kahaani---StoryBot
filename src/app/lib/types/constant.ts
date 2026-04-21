@@ -32,7 +32,7 @@ export const LANGUAGE_OPTIONS: Array<{
 export const STORIES_LIST = [
   {
     title: "The Birth of Ganesha",
-    thumbnail: "/story-poster/birth-of-ganesha.png",
+    thumbnail: "/story-poster/the-birth-of-ganesha.png",
     type: "video",
     slug: "the-birth-of-ganesha",
     hasVideo: InBuildStories["the-birth-of-ganesha"].videoUrl ? true : false,
@@ -48,7 +48,7 @@ export const STORIES_LIST = [
   },
   {
     title: "Krishna's Butter Story",
-    thumbnail: "/story-poster/krishna-butter-story.png",
+    thumbnail: "/story-poster/krishna's-butter-story.png",
     slug: "krishna-butter-story",
     hasVideo: InBuildStories["krishna-butter-story"].videoUrl ? true : false,
     hasImages:
@@ -125,5 +125,39 @@ export const STORIES_LIST = [
       InBuildStories["hanuman's-leap-to-lanka"].images.length > 0
         ? true
         : false,
+  },
+  {
+    title: "Fox and Goat",
+    thumbnail: "/story-poster/fox-and-goat.png",
+    slug: "fox-and-goat",
+    hasVideo: InBuildStories["fox-and-goat"].videoUrl ? true : false,
+    hasImages:
+      InBuildStories["fox-and-goat"]?.images?.length > 0 ? true : false,
+  },
+  {
+    title: "Little Red Riding Hood",
+    thumbnail: "/story-poster/little-red-riding-hood.png",
+    slug: "little-red-riding-hood",
+    hasVideo: InBuildStories["little-red-riding-hood"].videoUrl ? true : false,
+    hasImages:
+      InBuildStories["little-red-riding-hood"]?.images?.length > 0
+        ? true
+        : false,
+  },
+  {
+    title: "Three Little Pigs",
+    thumbnail: "/story-poster/three-little-pigs.png",
+    slug: "three-little-pigs",
+    hasVideo: InBuildStories["three-little-pigs"].videoUrl ? true : false,
+    hasImages:
+      InBuildStories["three-little-pigs"]?.images?.length > 0 ? true : false,
+  },
+  {
+    title: "Wolf and Seven Lambs",
+    thumbnail: "/story-poster/wolf-and-seven-lambs.png",
+    slug: "wolf-and-seven-lambs",
+    hasVideo: InBuildStories["wolf-and-seven-lambs"].videoUrl ? true : false,
+    hasImages:
+      InBuildStories["wolf-and-seven-lambs"]?.images?.length > 0 ? true : false,
   },
 ];

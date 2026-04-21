@@ -888,22 +888,5 @@
       "language": "punjabi",
       "audioUrl": "https://bqubshxvjvqfpbkobhij.supabase.co/storage/v1/object/public/stories/tts/hanuman's-leap-to-lanka-punjabi.wav"
     }
-  },
-  "krishna-lifts-govardhan-hill": {
-    "videoUrl": "",
-    "images": [
-      "https://bqubshxvjvqfpbkobhij.supabase.co/storage/v1/object/public/stories/images/krishna-lifts-govardhan-hill-image-1.png",
-      "https://bqubshxvjvqfpbkobhij.supabase.co/storage/v1/object/public/stories/images/krishna-lifts-govardhan-hill-image-2.png",
-      "https://bqubshxvjvqfpbkobhij.supabase.co/storage/v1/object/public/stories/images/krishna-lifts-govardhan-hill-image-3.png",
-      "https://bqubshxvjvqfpbkobhij.supabase.co/storage/v1/object/public/stories/images/krishna-lifts-govardhan-hill-image-4.png"
-    ],
-    "english": {
-      "title": "Krishna and the Mighty Hill",
-      "story": "In the cheerful village of Vrindavan, the people loved celebrating and giving thanks for nature's gifts. Every year, they prepared a grand offering for the rain god. One day, little Krishna gently asked, “Why don't we thank the hill, the cows, and the fields that take care of us every day?” The villagers smiled and agreed to celebrate Govardhan Hill instead. Soon after, dark clouds gathered and heavy rain began to pour. The villagers felt worried as the rain did not stop. Seeing this, Krishna stayed calm and kind. With a playful smile, he lifted the great Govardhan Hill using just his little finger, creating a safe shelter underneath. All the villagers, along with their animals, gathered happily under the hill. They sang songs, shared food, and felt safe together. Krishna stood strong, holding the hill with ease, spreading comfort and joy. After some time, the rain stopped, and the skies turned bright again. The villagers stepped out with grateful hearts, amazed by Krishna's love and care for everyone.",
-      "summary": "Krishna encouraged the villagers to honor nature and then protected them from heavy rains by lifting Govardhan Hill. Everyone stayed safe together under the hill. The story shows Krishna's kindness and wisdom.",
-      "moral": "Respecting nature and caring for others brings happiness and protection.",
-      "language": "english",
-      "audioUrl": "https://bqubshxvjvqfpbkobhij.supabase.co/storage/v1/object/public/stories/tts/krishna-lifts-govardhan-hill-english.wav"
-    }
   }
 }

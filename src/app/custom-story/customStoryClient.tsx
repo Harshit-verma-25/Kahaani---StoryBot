@@ -65,7 +65,7 @@ const GenerateStoryPageContent = () => {
         clearInterval(intervalId);
       }
     };
-  }, [loading, LOADING_MESSAGES]);
+  }, [loading]);
 
   useEffect(() => {
     if (searchParams.get("reset") !== "1") return;

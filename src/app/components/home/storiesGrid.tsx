@@ -1,6 +1,7 @@
 import { STORIES_LIST } from "@/app/lib/types/constant";
 import Image from "next/image";
 import Link from "next/link";
+import { CiImageOn, CiVideoOn } from "react-icons/ci";
 
 const StoriesGridSection = () => {
   return (
@@ -10,14 +11,12 @@ const StoriesGridSection = () => {
     >
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-10 items-start">
         {STORIES_LIST.slice(0, 6).map((story, index) => (
-          <div
+          <Link
+            href={`/stories/${story.slug}`}
+            className="block w-full h-full"
             key={index}
-            className="relative rounded-xl h-[250px] overflow-hidden cursor-pointer hover:shadow-lg transition hover:scale-[1.02]"
           >
-            <Link
-              href={`/stories/${story.slug}`}
-              className="block w-full h-full"
-            >
+            <div className="relative rounded-xl h-[250px] overflow-hidden cursor-pointer hover:shadow-lg transition hover:scale-[1.02]">
               <Image
                 src={story.thumbnail}
                 alt={story.title}
@@ -26,8 +25,33 @@ const StoriesGridSection = () => {
                 className="w-full h-full object-fill rounded-xl"
                 priority
               />
-            </Link>
-          </div>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <span className="block mt-2 text-lg font-medium text-primary">
+                {story.title}
+              </span>
+
+              <div className="flex items-center gap-2">
+                {story.hasVideo && (
+                  <>
+                    <CiVideoOn
+                      className="text-2xl text-primary"
+                      title="Has Video"
+                    />
+                    <div className="w-px h-6 bg-primary rounded-full" />
+                  </>
+                )}
+
+                {story.hasImages && (
+                  <CiImageOn
+                    className="text-2xl text-primary"
+                    title="Has Images"
+                  />
+                )}
+              </div>
+            </div>
+          </Link>
         ))}
       </div>
 

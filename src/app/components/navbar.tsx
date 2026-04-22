@@ -62,9 +62,9 @@ const Navbar = () => {
             </Link>
           ))}
 
-          <button className="px-3 font-medium py-1 border border-secondary hover:bg-secondary hover:scale-105 hover:text-white rounded-full transition cursor-pointer">
+          {/* <button className="px-3 font-medium py-1 border border-secondary hover:bg-secondary hover:scale-105 hover:text-white rounded-full transition cursor-pointer">
             Get Started
-          </button>
+          </button> */}
         </div>
       </div>
 
@@ -89,9 +89,9 @@ const Navbar = () => {
                 </Link>
               </li>
             ))}
-            <button className="px-4 text-left text-background bg-secondary font-medium py-2 transition cursor-pointer">
+            {/* <button className="px-4 text-left text-background bg-secondary font-medium py-2 transition cursor-pointer">
               Get Started
-            </button>
+            </button> */}
           </ul>
         </div>
       </div>

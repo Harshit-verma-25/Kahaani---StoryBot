@@ -209,10 +209,7 @@ const GenerateStoryPageContent = () => {
 
         const promptParam = storyFormData.prompt;
 
-        const generatedStory = await generateStory(
-          promptParam,
-          storyFormData.language,
-        );
+        const generatedStory = await generateStory(promptParam, "english");
 
         setOutput((prev) =>
           prev

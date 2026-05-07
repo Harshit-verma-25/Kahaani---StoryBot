@@ -6,8 +6,10 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import ContactModal from "./modals/contactModal";
 import JoinOurTeamModal from "./modals/joinOurTeamModal";
+import { useRouter } from "next/navigation";
 
 const Footer = () => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
 
   const [isSubscribing, setIsSubscribing] = useState(false);
@@ -135,7 +137,7 @@ const Footer = () => {
             ))}
             <button
               className="underline hover:text-secondary cursor-pointer"
-              onClick={() => setIsContactModalOpen(true)}
+              onClick={() => router.push("/contact-us")}
             >
               Contact Us
             </button>

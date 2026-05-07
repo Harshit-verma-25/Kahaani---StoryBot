@@ -305,7 +305,7 @@ const GenerateStoryPageContent = () => {
                 />
               </div>
 
-              <div className="flex flex-col gap-2">
+              {/* <div className="flex flex-col gap-2">
                 <label htmlFor="format" className="text-md font-medium">
                   Story Format
                 </label>
@@ -324,24 +324,24 @@ const GenerateStoryPageContent = () => {
                     setStoryFormData((prev) => ({ ...prev, format: value }))
                   }
                 />
-              </div>
+              </div> */}
 
-              {storyFormData.format === "text_story_with_visuals" && (
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="language" className="text-md font-medium">
-                    Choose Language <span className="text-red-500">*</span>
-                  </label>
-                  <CustomSelect
-                    id="language"
-                    value={storyFormData.language}
-                    options={LANGUAGE_OPTIONS}
-                    placeholder="Select language"
-                    onChange={(value) =>
-                      setStoryFormData((prev) => ({ ...prev, language: value }))
-                    }
-                  />
-                </div>
-              )}
+              {/* {storyFormData.format === "text_story_with_visuals" && ( */}
+              <div className="flex flex-col gap-2">
+                <label htmlFor="language" className="text-md font-medium">
+                  Choose Language <span className="text-red-500">*</span>
+                </label>
+                <CustomSelect
+                  id="language"
+                  value={storyFormData.language}
+                  options={LANGUAGE_OPTIONS}
+                  placeholder="Select language"
+                  onChange={(value) =>
+                    setStoryFormData((prev) => ({ ...prev, language: value }))
+                  }
+                />
+              </div>
+              {/* )} */}
 
               <button
                 type="submit"
@@ -376,7 +376,15 @@ const GenerateStoryPageContent = () => {
               )}
             </div>
 
-            {storyFormData.format === "text_story_with_visuals" ? (
+            <TextStoryOutput
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              output={output as TextStoryFormat}
+              isStoryLoading={isStoryLoading}
+              isImageLoading={isImageLoading}
+              isTTSLoading={isTTSLoading}
+            />
+            {/* {storyFormData.format === "text_story_with_visuals" ? (
               <TextStoryOutput
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
@@ -393,7 +401,7 @@ const GenerateStoryPageContent = () => {
                 isStoryLoading={isStoryLoading}
                 isVideoLoading={isVideoLoading}
               />
-            ) : null}
+            ) : null} */}
           </>
         )}
       </div>
